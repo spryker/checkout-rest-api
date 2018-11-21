@@ -9,17 +9,17 @@ namespace Spryker\Zed\CheckoutRestApi\Communication\Plugin;
 
 use Generated\Shared\Transfer\QuoteTransfer;
 use Generated\Shared\Transfer\RestCheckoutRequestAttributesTransfer;
-use Spryker\Zed\CheckoutRestApiExtension\Dependency\Plugin\QuoteMappingPluginInterface;
+use Spryker\Zed\CheckoutRestApiExtension\Dependency\Plugin\QuoteMapperPluginInterface;
 use Spryker\Zed\Kernel\Communication\AbstractPlugin;
 
 /**
  * @method \Spryker\Zed\CheckoutRestApi\Business\CheckoutRestApiFacadeInterface getFacade()
  */
-class AddressesQuoteMappingPlugin extends AbstractPlugin implements QuoteMappingPluginInterface
+class CustomerQuoteMapperPlugin extends AbstractPlugin implements QuoteMapperPluginInterface
 {
     /**
      * {@inheritdoc}
-     * - Maps rest request billing and shipping addresses to quote.
+     * - Maps rest request customer to quote.
      *
      * @api
      *
@@ -28,10 +28,10 @@ class AddressesQuoteMappingPlugin extends AbstractPlugin implements QuoteMapping
      *
      * @return \Generated\Shared\Transfer\QuoteTransfer
      */
-    public function mapRestRequestToQuote(
+    public function map(
         RestCheckoutRequestAttributesTransfer $restCheckoutRequestAttributesTransfer,
         QuoteTransfer $quoteTransfer
     ): QuoteTransfer {
-        return $this->getFacade()->mapAddressesToQuote($restCheckoutRequestAttributesTransfer, $quoteTransfer);
+        return $this->getFacade()->mapCustomerToQuote($restCheckoutRequestAttributesTransfer, $quoteTransfer);
     }
 }
