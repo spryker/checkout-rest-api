@@ -10,12 +10,12 @@ namespace Spryker\Zed\CheckoutRestApi\Dependency\Facade;
 use Generated\Shared\Transfer\QuoteResponseTransfer;
 use Generated\Shared\Transfer\QuoteTransfer;
 
-interface CheckoutRestApiToQuoteFacadeInterface
+interface CheckoutRestApiToCartsRestApiFacadeInterface
 {
     /**
      * @param \Generated\Shared\Transfer\QuoteTransfer $quoteTransfer
      *
      * @return \Generated\Shared\Transfer\QuoteResponseTransfer
      */
-    public function deleteQuote(QuoteTransfer $quoteTransfer): QuoteResponseTransfer;
+    public function findCustomerQuoteByUuid(QuoteTransfer $quoteTransfer): QuoteResponseTransfer;
 }
