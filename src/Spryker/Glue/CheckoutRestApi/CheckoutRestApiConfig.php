@@ -168,33 +168,7 @@ class CheckoutRestApiConfig extends AbstractBundleConfig
     /**
      * @var array<string, array<string, mixed>>
      */
-    protected const ERROR_IDENTIFIER_TO_REST_ERROR_MAPPING = [
-        SharedCheckoutRestApiConfig::ERROR_IDENTIFIER_UNABLE_TO_DELETE_CART => [
-            RestErrorMessageTransfer::CODE => self::RESPONSE_CODE_UNABLE_TO_DELETE_CART,
-            RestErrorMessageTransfer::STATUS => Response::HTTP_UNPROCESSABLE_ENTITY,
-            RestErrorMessageTransfer::DETAIL => self::RESPONSE_DETAILS_UNABLE_TO_DELETE_CART,
-        ],
-        SharedCheckoutRestApiConfig::ERROR_IDENTIFIER_ORDER_NOT_PLACED => [
-            RestErrorMessageTransfer::CODE => self::RESPONSE_CODE_ORDER_NOT_PLACED,
-            RestErrorMessageTransfer::STATUS => Response::HTTP_UNPROCESSABLE_ENTITY,
-            RestErrorMessageTransfer::DETAIL => self::RESPONSE_DETAILS_ORDER_NOT_PLACED,
-        ],
-        SharedCheckoutRestApiConfig::ERROR_IDENTIFIER_CART_IS_EMPTY => [
-            RestErrorMessageTransfer::CODE => self::RESPONSE_CODE_CART_IS_EMPTY,
-            RestErrorMessageTransfer::STATUS => Response::HTTP_UNPROCESSABLE_ENTITY,
-            RestErrorMessageTransfer::DETAIL => self::RESPONSE_DETAILS_CART_IS_EMPTY,
-        ],
-        SharedCheckoutRestApiConfig::ERROR_IDENTIFIER_CART_NOT_FOUND => [
-            RestErrorMessageTransfer::CODE => self::RESPONSE_CODE_CART_NOT_FOUND,
-            RestErrorMessageTransfer::STATUS => Response::HTTP_UNPROCESSABLE_ENTITY,
-            RestErrorMessageTransfer::DETAIL => self::RESPONSE_DETAILS_CART_NOT_FOUND,
-        ],
-        SharedCheckoutRestApiConfig::ERROR_IDENTIFIER_CHECKOUT_DATA_INVALID => [
-            RestErrorMessageTransfer::CODE => self::RESPONSE_CODE_CHECKOUT_DATA_INVALID,
-            RestErrorMessageTransfer::STATUS => Response::HTTP_UNPROCESSABLE_ENTITY,
-            RestErrorMessageTransfer::DETAIL => self::RESPONSE_DETAILS_CHECKOUT_DATA_INVALID,
-        ],
-    ];
+    protected const ERROR_IDENTIFIER_TO_REST_ERROR_MAPPING = [];
 
     /**
      * @var bool
@@ -242,7 +216,37 @@ class CheckoutRestApiConfig extends AbstractBundleConfig
      */
     public function getErrorIdentifierToRestErrorMapping(): array
     {
-        return static::ERROR_IDENTIFIER_TO_REST_ERROR_MAPPING;
+        if (static::ERROR_IDENTIFIER_TO_REST_ERROR_MAPPING) {
+            return static::ERROR_IDENTIFIER_TO_REST_ERROR_MAPPING;
+        }
+
+        return [
+            SharedCheckoutRestApiConfig::ERROR_IDENTIFIER_UNABLE_TO_DELETE_CART => [
+                RestErrorMessageTransfer::CODE => static::RESPONSE_CODE_UNABLE_TO_DELETE_CART,
+                RestErrorMessageTransfer::STATUS => Response::HTTP_UNPROCESSABLE_ENTITY,
+                RestErrorMessageTransfer::DETAIL => static::RESPONSE_DETAILS_UNABLE_TO_DELETE_CART,
+            ],
+            SharedCheckoutRestApiConfig::ERROR_IDENTIFIER_ORDER_NOT_PLACED => [
+                RestErrorMessageTransfer::CODE => static::RESPONSE_CODE_ORDER_NOT_PLACED,
+                RestErrorMessageTransfer::STATUS => Response::HTTP_UNPROCESSABLE_ENTITY,
+                RestErrorMessageTransfer::DETAIL => static::RESPONSE_DETAILS_ORDER_NOT_PLACED,
+            ],
+            SharedCheckoutRestApiConfig::ERROR_IDENTIFIER_CART_IS_EMPTY => [
+                RestErrorMessageTransfer::CODE => static::RESPONSE_CODE_CART_IS_EMPTY,
+                RestErrorMessageTransfer::STATUS => Response::HTTP_UNPROCESSABLE_ENTITY,
+                RestErrorMessageTransfer::DETAIL => static::RESPONSE_DETAILS_CART_IS_EMPTY,
+            ],
+            SharedCheckoutRestApiConfig::ERROR_IDENTIFIER_CART_NOT_FOUND => [
+                RestErrorMessageTransfer::CODE => static::RESPONSE_CODE_CART_NOT_FOUND,
+                RestErrorMessageTransfer::STATUS => Response::HTTP_UNPROCESSABLE_ENTITY,
+                RestErrorMessageTransfer::DETAIL => static::RESPONSE_DETAILS_CART_NOT_FOUND,
+            ],
+            SharedCheckoutRestApiConfig::ERROR_IDENTIFIER_CHECKOUT_DATA_INVALID => [
+                RestErrorMessageTransfer::CODE => static::RESPONSE_CODE_CHECKOUT_DATA_INVALID,
+                RestErrorMessageTransfer::STATUS => Response::HTTP_UNPROCESSABLE_ENTITY,
+                RestErrorMessageTransfer::DETAIL => static::RESPONSE_DETAILS_CHECKOUT_DATA_INVALID,
+            ],
+        ];
     }
 
     /**
