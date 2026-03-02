@@ -76,11 +76,6 @@ class PlaceOrderProcessor implements PlaceOrderProcessorInterface
         $this->config = $config;
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\RestCheckoutRequestAttributesTransfer $restCheckoutRequestAttributesTransfer
-     *
-     * @return \Generated\Shared\Transfer\RestCheckoutResponseTransfer
-     */
     public function placeOrder(RestCheckoutRequestAttributesTransfer $restCheckoutRequestAttributesTransfer): RestCheckoutResponseTransfer
     {
         $restCheckoutResponseTransfer = $this->checkoutValidator->validateCheckout($restCheckoutRequestAttributesTransfer);
@@ -98,11 +93,6 @@ class PlaceOrderProcessor implements PlaceOrderProcessorInterface
         return $this->placeOrderWithCartRemoval($quoteTransfer);
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\QuoteTransfer $quoteTransfer
-     *
-     * @return \Generated\Shared\Transfer\RestCheckoutResponseTransfer
-     */
     protected function placeOrderWithCartRemoval(QuoteTransfer $quoteTransfer): RestCheckoutResponseTransfer
     {
         $checkoutResponseTransfer = $this->checkoutFacade->placeOrder($quoteTransfer);
@@ -125,12 +115,6 @@ class PlaceOrderProcessor implements PlaceOrderProcessorInterface
         return $this->createRestCheckoutResponseTransfer($checkoutResponseTransfer);
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\RestCheckoutRequestAttributesTransfer $restCheckoutRequestAttributesTransfer
-     * @param \Generated\Shared\Transfer\QuoteTransfer $quoteTransfer
-     *
-     * @return \Generated\Shared\Transfer\QuoteTransfer
-     */
     protected function executeQuoteMapperPlugins(
         RestCheckoutRequestAttributesTransfer $restCheckoutRequestAttributesTransfer,
         QuoteTransfer $quoteTransfer
@@ -142,12 +126,6 @@ class PlaceOrderProcessor implements PlaceOrderProcessorInterface
         return $quoteTransfer;
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\QuoteResponseTransfer $quoteResponseTransfer
-     * @param string $errorIdentifier
-     *
-     * @return \Generated\Shared\Transfer\RestCheckoutResponseTransfer
-     */
     protected function createRestCheckoutResponseError(
         QuoteResponseTransfer $quoteResponseTransfer,
         string $errorIdentifier
@@ -174,11 +152,6 @@ class PlaceOrderProcessor implements PlaceOrderProcessorInterface
         return $restCheckoutResponseTransfer;
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\CheckoutResponseTransfer $checkoutResponseTransfer
-     *
-     * @return \Generated\Shared\Transfer\RestCheckoutResponseTransfer
-     */
     protected function createPlaceOrderErrorResponse(CheckoutResponseTransfer $checkoutResponseTransfer): RestCheckoutResponseTransfer
     {
         $restCheckoutResponseTransfer = (new RestCheckoutResponseTransfer())
@@ -204,11 +177,6 @@ class PlaceOrderProcessor implements PlaceOrderProcessorInterface
         return $restCheckoutResponseTransfer;
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\CheckoutResponseTransfer $checkoutResponseTransfer
-     *
-     * @return \Generated\Shared\Transfer\RestCheckoutResponseTransfer
-     */
     protected function createRestCheckoutResponseTransfer(CheckoutResponseTransfer $checkoutResponseTransfer): RestCheckoutResponseTransfer
     {
         return (new RestCheckoutResponseTransfer())

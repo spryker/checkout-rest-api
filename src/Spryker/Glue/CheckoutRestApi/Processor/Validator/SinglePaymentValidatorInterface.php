@@ -12,10 +12,5 @@ use Generated\Shared\Transfer\RestErrorCollectionTransfer;
 
 interface SinglePaymentValidatorInterface
 {
-    /**
-     * @param \Generated\Shared\Transfer\RestCheckoutRequestAttributesTransfer $restCheckoutRequestAttributesTransfer
-     *
-     * @return \Generated\Shared\Transfer\RestErrorCollectionTransfer
-     */
     public function validate(RestCheckoutRequestAttributesTransfer $restCheckoutRequestAttributesTransfer): RestErrorCollectionTransfer;
 }

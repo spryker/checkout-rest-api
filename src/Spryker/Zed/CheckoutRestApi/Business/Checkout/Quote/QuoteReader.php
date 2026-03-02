@@ -19,19 +19,11 @@ class QuoteReader implements QuoteReaderInterface
      */
     protected $cartsRestApiFacade;
 
-    /**
-     * @param \Spryker\Zed\CheckoutRestApi\Dependency\Facade\CheckoutRestApiToCartsRestApiFacadeInterface $cartsRestApiFacade
-     */
     public function __construct(CheckoutRestApiToCartsRestApiFacadeInterface $cartsRestApiFacade)
     {
         $this->cartsRestApiFacade = $cartsRestApiFacade;
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\RestCheckoutRequestAttributesTransfer $restCheckoutRequestAttributesTransfer
-     *
-     * @return \Generated\Shared\Transfer\QuoteTransfer|null
-     */
     public function findCustomerQuoteByUuid(RestCheckoutRequestAttributesTransfer $restCheckoutRequestAttributesTransfer): ?QuoteTransfer
     {
         if (
@@ -52,11 +44,6 @@ class QuoteReader implements QuoteReaderInterface
         return $quoteResponseTransfer->getQuoteTransfer();
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\RestCheckoutRequestAttributesTransfer $restCheckoutRequestAttributesTransfer
-     *
-     * @return \Generated\Shared\Transfer\QuoteTransfer
-     */
     protected function createQuoteTransfer(
         RestCheckoutRequestAttributesTransfer $restCheckoutRequestAttributesTransfer
     ): QuoteTransfer {

@@ -12,10 +12,5 @@ use Generated\Shared\Transfer\RestCheckoutRequestAttributesTransfer;
 
 interface CheckoutDataReaderInterface
 {
-    /**
-     * @param \Generated\Shared\Transfer\RestCheckoutRequestAttributesTransfer $restCheckoutRequestAttributesTransfer
-     *
-     * @return \Generated\Shared\Transfer\RestCheckoutDataResponseTransfer
-     */
     public function getCheckoutData(RestCheckoutRequestAttributesTransfer $restCheckoutRequestAttributesTransfer): RestCheckoutDataResponseTransfer;
 }

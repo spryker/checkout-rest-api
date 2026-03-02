@@ -19,10 +19,5 @@ interface CheckoutRestApiToPaymentFacadeInterface
      */
     public function getAvailableMethods(QuoteTransfer $quoteTransfer);
 
-    /**
-     * @param string $storeName
-     *
-     * @return \Generated\Shared\Transfer\PaymentProviderCollectionTransfer
-     */
     public function getAvailablePaymentProvidersForStore(string $storeName): PaymentProviderCollectionTransfer;
 }

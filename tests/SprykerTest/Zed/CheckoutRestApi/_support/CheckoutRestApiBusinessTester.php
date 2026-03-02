@@ -112,9 +112,6 @@ class CheckoutRestApiBusinessTester extends Actor
         'phone' => '+49 (30) 2084 98350',
     ];
 
-    /**
-     * @return \Generated\Shared\Transfer\RestCheckoutRequestAttributesTransfer
-     */
     public function prepareFullRestCheckoutRequestAttributesTransfer(): RestCheckoutRequestAttributesTransfer
     {
         /** @var \Generated\Shared\Transfer\RestCheckoutRequestAttributesTransfer $restCheckoutRequestAttributesTransfer */
@@ -127,9 +124,6 @@ class CheckoutRestApiBusinessTester extends Actor
         return $restCheckoutRequestAttributesTransfer;
     }
 
-    /**
-     * @return \Generated\Shared\Transfer\RestCheckoutRequestAttributesTransfer
-     */
     public function prepareFullRestCheckoutRequestAttributesTransferForGuest(): RestCheckoutRequestAttributesTransfer
     {
         /** @var \Generated\Shared\Transfer\RestCheckoutRequestAttributesTransfer $restCheckoutRequestAttributesTransfer */
@@ -268,9 +262,6 @@ class CheckoutRestApiBusinessTester extends Actor
         return (new ShipmentMethodsBuilder())->withMethod($shipmentMethodData)->build();
     }
 
-    /**
-     * @return \Generated\Shared\Transfer\ShipmentMethodsCollectionTransfer
-     */
     public function createShipmentMethodsCollectionTransfer(): ShipmentMethodsCollectionTransfer
     {
         $shipmentMethodData = [
@@ -290,11 +281,6 @@ class CheckoutRestApiBusinessTester extends Actor
             ->build();
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\QuoteProcessFlowTransfer|null $quoteProcessFlowTransfer
-     *
-     * @return \Generated\Shared\Transfer\QuoteTransfer
-     */
     public function createQuoteTransfer(?QuoteProcessFlowTransfer $quoteProcessFlowTransfer = null): QuoteTransfer
     {
         $product = $this->haveProduct();
@@ -317,9 +303,6 @@ class CheckoutRestApiBusinessTester extends Actor
         return $quoteTransfer->setPayment($this->getPaymentTransfer());
     }
 
-    /**
-     * @return \Generated\Shared\Transfer\QuoteTransfer
-     */
     public function createQuoteTransferForGuest(): QuoteTransfer
     {
         $product = $this->haveProduct();
@@ -340,9 +323,6 @@ class CheckoutRestApiBusinessTester extends Actor
         return $quoteTransfer->setPayment($this->getPaymentTransfer());
     }
 
-    /**
-     * @return \Generated\Shared\Transfer\QuoteTransfer
-     */
     public function createQuote(): QuoteTransfer
     {
         /** @var \Generated\Shared\Transfer\QuoteTransfer $quoteTransfer */
@@ -360,9 +340,6 @@ class CheckoutRestApiBusinessTester extends Actor
         return $quoteTransfer->setCustomerReference(static::CUSTOMER['customerReference']);
     }
 
-    /**
-     * @return \Generated\Shared\Transfer\PaymentMethodsTransfer
-     */
     public function createAvailableMethodsCollectionTransfer(): PaymentMethodsTransfer
     {
         /** @var \Generated\Shared\Transfer\PaymentMethodsTransfer $paymentMethodsTransfer */

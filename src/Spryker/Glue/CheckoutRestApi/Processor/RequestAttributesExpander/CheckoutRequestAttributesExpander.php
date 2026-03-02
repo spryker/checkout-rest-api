@@ -44,12 +44,6 @@ class CheckoutRequestAttributesExpander implements CheckoutRequestAttributesExpa
         $this->checkoutRequestExpanderPlugins = $checkoutRequestExpanderPlugins;
     }
 
-    /**
-     * @param \Spryker\Glue\GlueApplication\Rest\Request\Data\RestRequestInterface $restRequest
-     * @param \Generated\Shared\Transfer\RestCheckoutRequestAttributesTransfer $restCheckoutRequestAttributesTransfer
-     *
-     * @return \Generated\Shared\Transfer\RestCheckoutRequestAttributesTransfer
-     */
     public function expandCheckoutRequestAttributes(
         RestRequestInterface $restRequest,
         RestCheckoutRequestAttributesTransfer $restCheckoutRequestAttributesTransfer
@@ -60,12 +54,6 @@ class CheckoutRequestAttributesExpander implements CheckoutRequestAttributesExpa
         return $this->executeCheckoutRequestExpanderPlugins($restRequest, $restCheckoutRequestAttributesTransfer);
     }
 
-    /**
-     * @param \Spryker\Glue\GlueApplication\Rest\Request\Data\RestRequestInterface $restRequest
-     * @param \Generated\Shared\Transfer\RestCheckoutRequestAttributesTransfer $restCheckoutRequestAttributesTransfer
-     *
-     * @return \Generated\Shared\Transfer\RestCheckoutRequestAttributesTransfer
-     */
     protected function expandCustomerData(
         RestRequestInterface $restRequest,
         RestCheckoutRequestAttributesTransfer $restCheckoutRequestAttributesTransfer
@@ -76,11 +64,6 @@ class CheckoutRequestAttributesExpander implements CheckoutRequestAttributesExpa
         return $restCheckoutRequestAttributesTransfer;
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\RestCheckoutRequestAttributesTransfer $restCheckoutRequestAttributesTransfer
-     *
-     * @return \Generated\Shared\Transfer\RestCheckoutRequestAttributesTransfer
-     */
     protected function expandPaymentSelection(
         RestCheckoutRequestAttributesTransfer $restCheckoutRequestAttributesTransfer
     ): RestCheckoutRequestAttributesTransfer {
@@ -96,12 +79,6 @@ class CheckoutRequestAttributesExpander implements CheckoutRequestAttributesExpa
         return $restCheckoutRequestAttributesTransfer;
     }
 
-    /**
-     * @param \Spryker\Glue\GlueApplication\Rest\Request\Data\RestRequestInterface $restRequest
-     * @param \Generated\Shared\Transfer\RestCheckoutRequestAttributesTransfer $restCheckoutRequestAttributesTransfer
-     *
-     * @return \Generated\Shared\Transfer\RestCheckoutRequestAttributesTransfer
-     */
     protected function executeCheckoutRequestExpanderPlugins(
         RestRequestInterface $restRequest,
         RestCheckoutRequestAttributesTransfer $restCheckoutRequestAttributesTransfer

@@ -12,10 +12,5 @@ use Generated\Shared\Transfer\RestCheckoutRequestAttributesTransfer;
 
 interface QuoteReaderInterface
 {
-    /**
-     * @param \Generated\Shared\Transfer\RestCheckoutRequestAttributesTransfer $restCheckoutRequestAttributesTransfer
-     *
-     * @return \Generated\Shared\Transfer\QuoteTransfer|null
-     */
     public function findCustomerQuoteByUuid(RestCheckoutRequestAttributesTransfer $restCheckoutRequestAttributesTransfer): ?QuoteTransfer;
 }

@@ -35,12 +35,6 @@ class CheckoutDataMapper implements CheckoutDataMapperInterface
         $this->checkoutDataResponseMapperPlugins = $checkoutDataResponseMapperPlugins;
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\RestCheckoutDataTransfer $restCheckoutDataTransfer
-     * @param \Generated\Shared\Transfer\RestCheckoutRequestAttributesTransfer $restCheckoutRequestAttributesTransfer
-     *
-     * @return \Generated\Shared\Transfer\RestCheckoutDataResponseAttributesTransfer
-     */
     public function mapRestCheckoutDataTransferToRestCheckoutDataResponseAttributesTransfer(
         RestCheckoutDataTransfer $restCheckoutDataTransfer,
         RestCheckoutRequestAttributesTransfer $restCheckoutRequestAttributesTransfer

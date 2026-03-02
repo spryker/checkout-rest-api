@@ -25,12 +25,6 @@ class CheckoutResponseMapper implements CheckoutResponseMapperInterface
         $this->checkoutResponseMapperPlugins = $checkoutResponseMapperPlugins;
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\RestCheckoutResponseTransfer $restCheckoutResponseTransfer
-     * @param \Generated\Shared\Transfer\RestCheckoutResponseAttributesTransfer $restCheckoutResponseAttributesTransfer
-     *
-     * @return \Generated\Shared\Transfer\RestCheckoutResponseAttributesTransfer
-     */
     public function mapRestCheckoutResponseTransferToRestCheckoutResponseAttributesTransfer(
         RestCheckoutResponseTransfer $restCheckoutResponseTransfer,
         RestCheckoutResponseAttributesTransfer $restCheckoutResponseAttributesTransfer
@@ -43,12 +37,6 @@ class CheckoutResponseMapper implements CheckoutResponseMapperInterface
         );
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\RestCheckoutResponseTransfer $restCheckoutResponseTransfer
-     * @param \Generated\Shared\Transfer\RestCheckoutResponseAttributesTransfer $restCheckoutResponseAttributesTransfer
-     *
-     * @return \Generated\Shared\Transfer\RestCheckoutResponseAttributesTransfer
-     */
     protected function executeCheckoutResponseMapperPlugins(
         RestCheckoutResponseTransfer $restCheckoutResponseTransfer,
         RestCheckoutResponseAttributesTransfer $restCheckoutResponseAttributesTransfer

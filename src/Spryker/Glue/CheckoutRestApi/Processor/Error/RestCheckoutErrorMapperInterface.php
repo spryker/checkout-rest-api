@@ -12,24 +12,11 @@ use Generated\Shared\Transfer\RestErrorMessageTransfer;
 
 interface RestCheckoutErrorMapperInterface
 {
-    /**
-     * @param \Generated\Shared\Transfer\RestCheckoutErrorTransfer $restCheckoutErrorTransfer
-     * @param \Generated\Shared\Transfer\RestErrorMessageTransfer $restErrorMessageTransfer
-     *
-     * @return \Generated\Shared\Transfer\RestErrorMessageTransfer
-     */
     public function mapRestCheckoutErrorTransferToRestErrorTransfer(
         RestCheckoutErrorTransfer $restCheckoutErrorTransfer,
         RestErrorMessageTransfer $restErrorMessageTransfer
     ): RestErrorMessageTransfer;
 
-    /**
-     * @param \Generated\Shared\Transfer\RestCheckoutErrorTransfer $restCheckoutErrorTransfer
-     * @param \Generated\Shared\Transfer\RestErrorMessageTransfer $restErrorMessageTransfer
-     * @param string $localeCode
-     *
-     * @return \Generated\Shared\Transfer\RestErrorMessageTransfer
-     */
     public function mapLocalizedRestCheckoutErrorTransferToRestErrorTransfer(
         RestCheckoutErrorTransfer $restCheckoutErrorTransfer,
         RestErrorMessageTransfer $restErrorMessageTransfer,

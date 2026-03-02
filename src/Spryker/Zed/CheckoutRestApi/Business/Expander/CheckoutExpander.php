@@ -54,12 +54,6 @@ class CheckoutExpander implements CheckoutExpanderInterface
         $this->checkoutDataExpanderPlugins = $checkoutDataExpanderPlugins;
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\RestCheckoutDataTransfer $restCheckoutDataTransfer
-     * @param \Generated\Shared\Transfer\RestCheckoutRequestAttributesTransfer $restCheckoutRequestAttributesTransfer
-     *
-     * @return \Generated\Shared\Transfer\RestCheckoutDataTransfer
-     */
     public function expandCheckoutData(
         RestCheckoutDataTransfer $restCheckoutDataTransfer,
         RestCheckoutRequestAttributesTransfer $restCheckoutRequestAttributesTransfer
@@ -77,11 +71,6 @@ class CheckoutExpander implements CheckoutExpanderInterface
         return $restCheckoutDataTransfer;
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\RestCheckoutDataTransfer $restCheckoutDataTransfer
-     *
-     * @return \Generated\Shared\Transfer\RestCheckoutDataTransfer
-     */
     protected function expandCheckoutDataWithShipmentMethods(
         RestCheckoutDataTransfer $restCheckoutDataTransfer
     ): RestCheckoutDataTransfer {
@@ -97,11 +86,6 @@ class CheckoutExpander implements CheckoutExpanderInterface
         return $restCheckoutDataTransfer->setShipmentMethods($shipmentMethodsTransfer);
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\RestCheckoutDataTransfer $restCheckoutDataTransfer
-     *
-     * @return \Generated\Shared\Transfer\RestCheckoutDataTransfer
-     */
     protected function expandCheckoutDataWithPaymentProviders(
         RestCheckoutDataTransfer $restCheckoutDataTransfer
     ): RestCheckoutDataTransfer {
@@ -111,11 +95,6 @@ class CheckoutExpander implements CheckoutExpanderInterface
         return $restCheckoutDataTransfer->setPaymentProviders($paymentProviderCollectionTransfer);
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\RestCheckoutDataTransfer $restCheckoutDataTransfer
-     *
-     * @return \Generated\Shared\Transfer\RestCheckoutDataTransfer
-     */
     protected function expandCheckoutDataWithAddresses(
         RestCheckoutDataTransfer $restCheckoutDataTransfer
     ): RestCheckoutDataTransfer {
@@ -126,11 +105,6 @@ class CheckoutExpander implements CheckoutExpanderInterface
         return $restCheckoutDataTransfer->setAddresses($addressesTransfer);
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\RestCheckoutDataTransfer $restCheckoutDataTransfer
-     *
-     * @return \Generated\Shared\Transfer\RestCheckoutDataTransfer
-     */
     protected function expandCheckoutDataWithAvailablePaymentMethods(
         RestCheckoutDataTransfer $restCheckoutDataTransfer
     ): RestCheckoutDataTransfer {
@@ -141,12 +115,6 @@ class CheckoutExpander implements CheckoutExpanderInterface
         return $restCheckoutDataTransfer->setAvailablePaymentMethods($paymentMethodsTransfer);
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\RestCheckoutDataTransfer $restCheckoutDataTransfer
-     * @param \Generated\Shared\Transfer\RestCheckoutRequestAttributesTransfer $restCheckoutRequestAttributesTransfer
-     *
-     * @return \Generated\Shared\Transfer\RestCheckoutDataTransfer
-     */
     protected function executeCheckoutDataExpanderPlugins(
         RestCheckoutDataTransfer $restCheckoutDataTransfer,
         RestCheckoutRequestAttributesTransfer $restCheckoutRequestAttributesTransfer

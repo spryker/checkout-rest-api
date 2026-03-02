@@ -19,20 +19,11 @@ class AddressCheckoutDataResponseMapper implements CheckoutDataResponseMapperInt
      */
     protected $checkoutRestApiConfig;
 
-    /**
-     * @param \Spryker\Glue\CheckoutRestApi\CheckoutRestApiConfig $checkoutRestApiConfig
-     */
     public function __construct(CheckoutRestApiConfig $checkoutRestApiConfig)
     {
         $this->checkoutRestApiConfig = $checkoutRestApiConfig;
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\RestCheckoutDataTransfer $restCheckoutDataTransfer
-     * @param \Generated\Shared\Transfer\RestCheckoutDataResponseAttributesTransfer $restCheckoutDataResponseAttributesTransfer
-     *
-     * @return \Generated\Shared\Transfer\RestCheckoutDataResponseAttributesTransfer
-     */
     public function map(
         RestCheckoutDataTransfer $restCheckoutDataTransfer,
         RestCheckoutDataResponseAttributesTransfer $restCheckoutDataResponseAttributesTransfer

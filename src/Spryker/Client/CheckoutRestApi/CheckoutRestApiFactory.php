@@ -14,17 +14,11 @@ use Spryker\Client\Kernel\AbstractFactory;
 
 class CheckoutRestApiFactory extends AbstractFactory
 {
-    /**
-     * @return \Spryker\Client\CheckoutRestApi\Zed\CheckoutRestApiZedStubInterface
-     */
     public function createCheckoutRestApiZedStub(): CheckoutRestApiZedStubInterface
     {
         return new CheckoutRestApiZedStub($this->getZedRequestClient());
     }
 
-    /**
-     * @return \Spryker\Client\CheckoutRestApi\Dependency\Client\CheckoutRestApiToZedRequestClientInterface
-     */
     public function getZedRequestClient(): CheckoutRestApiToZedRequestClientInterface
     {
         return $this->getProvidedDependency(CheckoutRestApiDependencyProvider::CLIENT_ZED_REQUEST);

@@ -35,11 +35,6 @@ class CheckoutRestApiToPaymentFacadeBridge implements CheckoutRestApiToPaymentFa
         return $this->paymentFacade->getAvailableMethods($quoteTransfer);
     }
 
-    /**
-     * @param string $storeName
-     *
-     * @return \Generated\Shared\Transfer\PaymentProviderCollectionTransfer
-     */
     public function getAvailablePaymentProvidersForStore(string $storeName): PaymentProviderCollectionTransfer
     {
         return $this->paymentFacade->getAvailablePaymentProvidersForStore($storeName);

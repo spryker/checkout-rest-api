@@ -19,9 +19,6 @@ class CheckoutRestApiZedStub implements CheckoutRestApiZedStubInterface
      */
     protected $zedRequestClient;
 
-    /**
-     * @param \Spryker\Client\CheckoutRestApi\Dependency\Client\CheckoutRestApiToZedRequestClientInterface $zedRequestClient
-     */
     public function __construct(CheckoutRestApiToZedRequestClientInterface $zedRequestClient)
     {
         $this->zedRequestClient = $zedRequestClient;

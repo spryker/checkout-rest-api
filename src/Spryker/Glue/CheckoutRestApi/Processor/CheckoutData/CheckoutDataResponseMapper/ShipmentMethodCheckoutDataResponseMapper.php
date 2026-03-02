@@ -20,20 +20,11 @@ class ShipmentMethodCheckoutDataResponseMapper implements CheckoutDataResponseMa
      */
     protected $config;
 
-    /**
-     * @param \Spryker\Glue\CheckoutRestApi\CheckoutRestApiConfig $config
-     */
     public function __construct(CheckoutRestApiConfig $config)
     {
         $this->config = $config;
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\RestCheckoutDataTransfer $restCheckoutDataTransfer
-     * @param \Generated\Shared\Transfer\RestCheckoutDataResponseAttributesTransfer $restCheckoutDataResponseAttributesTransfer
-     *
-     * @return \Generated\Shared\Transfer\RestCheckoutDataResponseAttributesTransfer
-     */
     public function map(
         RestCheckoutDataTransfer $restCheckoutDataTransfer,
         RestCheckoutDataResponseAttributesTransfer $restCheckoutDataResponseAttributesTransfer
@@ -73,12 +64,6 @@ class ShipmentMethodCheckoutDataResponseMapper implements CheckoutDataResponseMa
         return $restCheckoutDataResponseAttributesTransfer;
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\ShipmentMethodTransfer $shipmentMethodTransfer
-     * @param \Generated\Shared\Transfer\RestShipmentMethodTransfer $restShipmentMethodTransfer
-     *
-     * @return \Generated\Shared\Transfer\RestShipmentMethodTransfer
-     */
     protected function mapShipmentMethodTransferToRestShipmentMethodTransfer(
         ShipmentMethodTransfer $shipmentMethodTransfer,
         RestShipmentMethodTransfer $restShipmentMethodTransfer

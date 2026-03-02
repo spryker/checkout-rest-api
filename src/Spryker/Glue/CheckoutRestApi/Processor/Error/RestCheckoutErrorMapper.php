@@ -24,10 +24,6 @@ class RestCheckoutErrorMapper implements RestCheckoutErrorMapperInterface
      */
     protected $glossaryStorageClient;
 
-    /**
-     * @param \Spryker\Glue\CheckoutRestApi\CheckoutRestApiConfig $config
-     * @param \Spryker\Glue\CheckoutRestApi\Dependency\Client\CheckoutRestApiToGlossaryStorageClientInterface $glossaryStorageClient
-     */
     public function __construct(
         CheckoutRestApiConfig $config,
         CheckoutRestApiToGlossaryStorageClientInterface $glossaryStorageClient
@@ -36,12 +32,6 @@ class RestCheckoutErrorMapper implements RestCheckoutErrorMapperInterface
         $this->glossaryStorageClient = $glossaryStorageClient;
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\RestCheckoutErrorTransfer $restCheckoutErrorTransfer
-     * @param \Generated\Shared\Transfer\RestErrorMessageTransfer $restErrorMessageTransfer
-     *
-     * @return \Generated\Shared\Transfer\RestErrorMessageTransfer
-     */
     public function mapRestCheckoutErrorTransferToRestErrorTransfer(
         RestCheckoutErrorTransfer $restCheckoutErrorTransfer,
         RestErrorMessageTransfer $restErrorMessageTransfer
@@ -53,13 +43,6 @@ class RestCheckoutErrorMapper implements RestCheckoutErrorMapperInterface
         );
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\RestCheckoutErrorTransfer $restCheckoutErrorTransfer
-     * @param \Generated\Shared\Transfer\RestErrorMessageTransfer $restErrorMessageTransfer
-     * @param string $localeCode
-     *
-     * @return \Generated\Shared\Transfer\RestErrorMessageTransfer
-     */
     public function mapLocalizedRestCheckoutErrorTransferToRestErrorTransfer(
         RestCheckoutErrorTransfer $restCheckoutErrorTransfer,
         RestErrorMessageTransfer $restErrorMessageTransfer,
@@ -72,13 +55,6 @@ class RestCheckoutErrorMapper implements RestCheckoutErrorMapperInterface
         );
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\RestCheckoutErrorTransfer $restCheckoutErrorTransfer
-     * @param \Generated\Shared\Transfer\RestErrorMessageTransfer $restErrorMessageTransfer
-     * @param array $errorData
-     *
-     * @return \Generated\Shared\Transfer\RestErrorMessageTransfer
-     */
     protected function mergeErrorDataWithErrorConfiguration(
         RestCheckoutErrorTransfer $restCheckoutErrorTransfer,
         RestErrorMessageTransfer $restErrorMessageTransfer,
@@ -93,22 +69,11 @@ class RestCheckoutErrorMapper implements RestCheckoutErrorMapperInterface
         return $restErrorMessageTransfer->fromArray($errorData, true);
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\RestCheckoutErrorTransfer $restCheckoutErrorTransfer
-     *
-     * @return array
-     */
     protected function getErrorIdentifierMapping(RestCheckoutErrorTransfer $restCheckoutErrorTransfer): array
     {
         return $this->config->getErrorIdentifierToRestErrorMapping()[$restCheckoutErrorTransfer->getErrorIdentifier()] ?? [];
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\RestCheckoutErrorTransfer $restCheckoutErrorTransfer
-     * @param string $localeName
-     *
-     * @return \Generated\Shared\Transfer\RestCheckoutErrorTransfer
-     */
     protected function translateCheckoutErrorMessage(
         RestCheckoutErrorTransfer $restCheckoutErrorTransfer,
         string $localeName

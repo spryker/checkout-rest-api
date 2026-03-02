@@ -19,19 +19,11 @@ class AddressReader implements AddressReaderInterface
      */
     protected $customerFacade;
 
-    /**
-     * @param \Spryker\Zed\CheckoutRestApi\Dependency\Facade\CheckoutRestApiToCustomerFacadeInterface $customerFacade
-     */
     public function __construct(CheckoutRestApiToCustomerFacadeInterface $customerFacade)
     {
         $this->customerFacade = $customerFacade;
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\QuoteTransfer $quoteTransfer
-     *
-     * @return \Generated\Shared\Transfer\AddressesTransfer
-     */
     public function getAddressesTransfer(QuoteTransfer $quoteTransfer): AddressesTransfer
     {
         $customerTransfer = $quoteTransfer->getCustomer();
@@ -47,11 +39,6 @@ class AddressReader implements AddressReaderInterface
         return $this->extendAddressesWithDefaultBillingAndShipping($customerResponseTransfer->getCustomerTransfer());
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\CustomerTransfer $customerTransfer
-     *
-     * @return \Generated\Shared\Transfer\AddressesTransfer
-     */
     protected function extendAddressesWithDefaultBillingAndShipping(CustomerTransfer $customerTransfer): AddressesTransfer
     {
         $addressesTransfer = new AddressesTransfer();

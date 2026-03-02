@@ -22,20 +22,11 @@ class PaymentProviderCheckoutDataResponseMapper implements CheckoutDataResponseM
      */
     protected $config;
 
-    /**
-     * @param \Spryker\Glue\CheckoutRestApi\CheckoutRestApiConfig $config
-     */
     public function __construct(CheckoutRestApiConfig $config)
     {
         $this->config = $config;
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\RestCheckoutDataTransfer $restCheckoutDataTransfer
-     * @param \Generated\Shared\Transfer\RestCheckoutDataResponseAttributesTransfer $restCheckoutDataResponseAttributesTransfer
-     *
-     * @return \Generated\Shared\Transfer\RestCheckoutDataResponseAttributesTransfer
-     */
     public function map(
         RestCheckoutDataTransfer $restCheckoutDataTransfer,
         RestCheckoutDataResponseAttributesTransfer $restCheckoutDataResponseAttributesTransfer
@@ -92,11 +83,6 @@ class PaymentProviderCheckoutDataResponseMapper implements CheckoutDataResponseM
         return $restCheckoutDataResponseAttributesTransfer;
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\PaymentMethodsTransfer $availablePaymentMethods
-     *
-     * @return array
-     */
     protected function getAvailablePaymentMethodsList(PaymentMethodsTransfer $availablePaymentMethods): array
     {
         $availablePaymentMethodsList = [];

@@ -69,9 +69,6 @@ class CheckoutRestApiFacadeTest extends Unit
      */
     protected $customer;
 
-    /**
-     * @return void
-     */
     public function testGetCheckoutDataWillReturnNotEmptyCheckoutDataTransfer(): void
     {
         /**
@@ -94,9 +91,6 @@ class CheckoutRestApiFacadeTest extends Unit
         $this->assertCount(1, $restCheckoutDataResponseTransfer->getCheckoutData()->getPaymentProviders()->getPaymentProviders());
     }
 
-    /**
-     * @return void
-     */
     public function testGetCheckoutDataWillReturnNotEmptyCheckoutDataTransferForGuest(): void
     {
         /**
@@ -118,9 +112,6 @@ class CheckoutRestApiFacadeTest extends Unit
         $this->assertCount(1, $restCheckoutDataResponseTransfer->getCheckoutData()->getPaymentProviders()->getPaymentProviders());
     }
 
-    /**
-     * @return void
-     */
     public function testPlaceOrderWillPlaceOrderForCustomer(): void
     {
         /**
@@ -137,9 +128,6 @@ class CheckoutRestApiFacadeTest extends Unit
         $this->assertTrue($checkoutResponseTransfer->getIsSuccess());
     }
 
-    /**
-     * @return void
-     */
     public function testPlaceOrderWillPlaceOrderForGuest(): void
     {
         /**
@@ -156,9 +144,6 @@ class CheckoutRestApiFacadeTest extends Unit
         $this->assertTrue($checkoutResponseTransfer->getIsSuccess());
     }
 
-    /**
-     * @return void
-     */
     public function testPlaceOrderWillFailOnItemOutOfStock(): void
     {
         /**
@@ -316,11 +301,6 @@ class CheckoutRestApiFacadeTest extends Unit
         return $mockCheckoutRestApiFactory;
     }
 
-    /**
-     * @param \Spryker\Zed\CheckoutRestApi\Business\CheckoutRestApiBusinessFactory $mockCheckoutRestApiFactory
-     *
-     * @return \Spryker\Zed\CheckoutRestApi\Business\CheckoutRestApiBusinessFactory
-     */
     protected function addStrategyResolverVanilla(CheckoutRestApiBusinessFactory $mockCheckoutRestApiFactory): CheckoutRestApiBusinessFactory
     {
         $strategyResolver = new StrategyResolver(
@@ -732,9 +712,6 @@ class CheckoutRestApiFacadeTest extends Unit
         ];
     }
 
-    /**
-     * @return \Spryker\Zed\CheckoutRestApiExtension\Dependency\Plugin\CheckoutDataValidatorPluginInterface
-     */
     protected function getCheckoutDataValidatorPluginMock(): CheckoutDataValidatorPluginInterface
     {
         $checkoutDataValidatorPluginMock = $this
@@ -748,9 +725,6 @@ class CheckoutRestApiFacadeTest extends Unit
         return $checkoutDataValidatorPluginMock;
     }
 
-    /**
-     * @return \Spryker\Zed\CheckoutRestApiExtension\Dependency\Plugin\CheckoutDataValidatorPluginInterface
-     */
     protected function getNeverCalledCheckoutDataValidatorPluginMock(): CheckoutDataValidatorPluginInterface
     {
         $checkoutDataValidatorPluginMock = $this

@@ -46,12 +46,6 @@ class CheckoutRequestValidator implements CheckoutRequestValidatorInterface
         $this->config = $config;
     }
 
-    /**
-     * @param \Spryker\Glue\GlueApplication\Rest\Request\Data\RestRequestInterface $restRequest
-     * @param \Generated\Shared\Transfer\RestCheckoutRequestAttributesTransfer $restCheckoutRequestAttributesTransfer
-     *
-     * @return \Generated\Shared\Transfer\RestErrorCollectionTransfer
-     */
     public function validateCheckoutDataRequest(
         RestRequestInterface $restRequest,
         RestCheckoutRequestAttributesTransfer $restCheckoutRequestAttributesTransfer
@@ -68,12 +62,6 @@ class CheckoutRequestValidator implements CheckoutRequestValidatorInterface
         );
     }
 
-    /**
-     * @param \Spryker\Glue\GlueApplication\Rest\Request\Data\RestRequestInterface $restRequest
-     * @param \Generated\Shared\Transfer\RestCheckoutRequestAttributesTransfer $restCheckoutRequestAttributesTransfer
-     *
-     * @return \Generated\Shared\Transfer\RestErrorCollectionTransfer
-     */
     public function validateCheckoutRequest(
         RestRequestInterface $restRequest,
         RestCheckoutRequestAttributesTransfer $restCheckoutRequestAttributesTransfer
@@ -101,12 +89,6 @@ class CheckoutRequestValidator implements CheckoutRequestValidatorInterface
         );
     }
 
-    /**
-     * @param \Spryker\Glue\GlueApplication\Rest\Request\Data\RestRequestInterface $restRequest
-     * @param \Generated\Shared\Transfer\RestErrorCollectionTransfer $restErrorCollectionTransfer
-     *
-     * @return \Generated\Shared\Transfer\RestErrorCollectionTransfer|null
-     */
     protected function validateCustomer(
         RestRequestInterface $restRequest,
         RestErrorCollectionTransfer $restErrorCollectionTransfer
@@ -123,13 +105,6 @@ class CheckoutRequestValidator implements CheckoutRequestValidatorInterface
         return $restErrorCollectionTransfer;
     }
 
-    /**
-     * @param \Spryker\Glue\GlueApplication\Rest\Request\Data\RestRequestInterface $restRequest
-     * @param \Generated\Shared\Transfer\RestCheckoutRequestAttributesTransfer $restCheckoutRequestAttributesTransfer
-     * @param \Generated\Shared\Transfer\RestErrorCollectionTransfer $restErrorCollectionTransfer
-     *
-     * @return \Generated\Shared\Transfer\RestErrorCollectionTransfer
-     */
     protected function validateGuestCustomerData(
         RestRequestInterface $restRequest,
         RestCheckoutRequestAttributesTransfer $restCheckoutRequestAttributesTransfer,
@@ -151,12 +126,6 @@ class CheckoutRequestValidator implements CheckoutRequestValidatorInterface
         return $restErrorCollectionTransfer->addRestError($resErrorMessageTransfer);
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\RestCheckoutRequestAttributesTransfer $restCheckoutRequestAttributesTransfer
-     * @param \Generated\Shared\Transfer\RestErrorCollectionTransfer $restErrorCollectionTransfer
-     *
-     * @return \Generated\Shared\Transfer\RestErrorCollectionTransfer
-     */
     protected function validatePayments(
         RestCheckoutRequestAttributesTransfer $restCheckoutRequestAttributesTransfer,
         RestErrorCollectionTransfer $restErrorCollectionTransfer
@@ -183,12 +152,6 @@ class CheckoutRequestValidator implements CheckoutRequestValidatorInterface
         return $restErrorCollectionTransfer;
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\RestCheckoutRequestAttributesTransfer $restCheckoutRequestAttributesTransfer
-     * @param \Generated\Shared\Transfer\RestErrorCollectionTransfer $restErrorCollectionTransfer
-     *
-     * @return \Generated\Shared\Transfer\RestErrorCollectionTransfer
-     */
     protected function executeCheckoutRequestAttributesValidatorPlugins(
         RestCheckoutRequestAttributesTransfer $restCheckoutRequestAttributesTransfer,
         RestErrorCollectionTransfer $restErrorCollectionTransfer
@@ -207,12 +170,6 @@ class CheckoutRequestValidator implements CheckoutRequestValidatorInterface
         return $restErrorCollectionTransfer;
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\RestCheckoutRequestAttributesTransfer $restCheckoutRequestAttributesTransfer
-     * @param \Generated\Shared\Transfer\RestErrorCollectionTransfer $restErrorCollectionTransfer
-     *
-     * @return \Generated\Shared\Transfer\RestErrorCollectionTransfer
-     */
     protected function executeCheckoutRequestValidatorPlugins(
         RestCheckoutRequestAttributesTransfer $restCheckoutRequestAttributesTransfer,
         RestErrorCollectionTransfer $restErrorCollectionTransfer
@@ -231,11 +188,6 @@ class CheckoutRequestValidator implements CheckoutRequestValidatorInterface
         return $restErrorCollectionTransfer;
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\RestCheckoutRequestAttributesTransfer $restCheckoutRequestAttributesTransfer
-     *
-     * @return bool
-     */
     protected function isRequiredGuestCustomerDataProvided(RestCheckoutRequestAttributesTransfer $restCheckoutRequestAttributesTransfer): bool
     {
         if ($restCheckoutRequestAttributesTransfer->getCustomer() === null) {
@@ -248,12 +200,6 @@ class CheckoutRequestValidator implements CheckoutRequestValidatorInterface
         return $requiredCustomerFieldsForGuestCheckout === array_intersect($requiredCustomerFieldsForGuestCheckout, array_keys($restCustomerData));
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\RestErrorCollectionTransfer $pluginErrorCollectionTransfer
-     * @param \Generated\Shared\Transfer\RestErrorCollectionTransfer $restErrorCollectionTransfer
-     *
-     * @return \Generated\Shared\Transfer\RestErrorCollectionTransfer
-     */
     protected function copyPluginErrorCollection(
         RestErrorCollectionTransfer $pluginErrorCollectionTransfer,
         RestErrorCollectionTransfer $restErrorCollectionTransfer

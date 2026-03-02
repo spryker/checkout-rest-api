@@ -61,11 +61,6 @@ class CheckoutValidator implements CheckoutValidatorInterface
         $this->readCheckoutDataValidatorPlugins = $readCheckoutDataValidatorPlugins;
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\RestCheckoutRequestAttributesTransfer $restCheckoutRequestAttributesTransfer
-     *
-     * @return \Generated\Shared\Transfer\RestCheckoutDataResponseTransfer
-     */
     public function validateCheckoutData(
         RestCheckoutRequestAttributesTransfer $restCheckoutRequestAttributesTransfer
     ): RestCheckoutDataResponseTransfer {
@@ -88,11 +83,6 @@ class CheckoutValidator implements CheckoutValidatorInterface
         return $this->getRestCheckoutDataResponse($checkoutDataTransfer, $restCheckoutDataResponseTransfer);
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\RestCheckoutRequestAttributesTransfer $restCheckoutRequestAttributesTransfer
-     *
-     * @return \Generated\Shared\Transfer\RestCheckoutResponseTransfer
-     */
     public function validateCheckout(
         RestCheckoutRequestAttributesTransfer $restCheckoutRequestAttributesTransfer
     ): RestCheckoutResponseTransfer {
@@ -115,12 +105,6 @@ class CheckoutValidator implements CheckoutValidatorInterface
         return $this->getRestCheckoutResponse($checkoutDataTransfer, $restCheckoutDataResponseTransfer);
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\CheckoutDataTransfer $checkoutDataTransfer
-     * @param \Generated\Shared\Transfer\RestCheckoutDataResponseTransfer $restCheckoutDataResponseTransfer
-     *
-     * @return \Generated\Shared\Transfer\RestCheckoutDataResponseTransfer
-     */
     protected function executeReadCheckoutDataValidatorPlugins(
         CheckoutDataTransfer $checkoutDataTransfer,
         RestCheckoutDataResponseTransfer $restCheckoutDataResponseTransfer
@@ -139,12 +123,6 @@ class CheckoutValidator implements CheckoutValidatorInterface
         return $restCheckoutDataResponseTransfer;
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\CheckoutResponseTransfer $checkoutResponseTransfer
-     * @param \Generated\Shared\Transfer\RestCheckoutDataResponseTransfer $restCheckoutDataResponseTransfer
-     *
-     * @return \Generated\Shared\Transfer\RestCheckoutDataResponseTransfer
-     */
     protected function copyCheckoutDataResponseErrors(
         CheckoutResponseTransfer $checkoutResponseTransfer,
         RestCheckoutDataResponseTransfer $restCheckoutDataResponseTransfer
@@ -161,12 +139,6 @@ class CheckoutValidator implements CheckoutValidatorInterface
         return $restCheckoutDataResponseTransfer->setIsSuccess(false);
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\CheckoutDataTransfer $checkoutDataTransfer
-     * @param \Generated\Shared\Transfer\RestCheckoutDataResponseTransfer $restCheckoutDataResponseTransfer
-     *
-     * @return \Generated\Shared\Transfer\RestCheckoutDataResponseTransfer
-     */
     protected function getRestCheckoutDataResponse(
         CheckoutDataTransfer $checkoutDataTransfer,
         RestCheckoutDataResponseTransfer $restCheckoutDataResponseTransfer
@@ -186,11 +158,6 @@ class CheckoutValidator implements CheckoutValidatorInterface
             );
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\QuoteTransfer|null $quoteTransfer
-     *
-     * @return \Generated\Shared\Transfer\RestCheckoutDataResponseTransfer
-     */
     protected function validateQuoteInCheckoutData(?QuoteTransfer $quoteTransfer): RestCheckoutDataResponseTransfer
     {
         if (!$quoteTransfer) {
@@ -201,12 +168,6 @@ class CheckoutValidator implements CheckoutValidatorInterface
             ->setIsSuccess(true);
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\CheckoutDataTransfer $checkoutDataTransfer
-     * @param \Generated\Shared\Transfer\RestCheckoutResponseTransfer $restCheckoutResponseTransfer
-     *
-     * @return \Generated\Shared\Transfer\RestCheckoutResponseTransfer
-     */
     protected function executeCheckoutDataValidatorPlugins(
         CheckoutDataTransfer $checkoutDataTransfer,
         RestCheckoutResponseTransfer $restCheckoutResponseTransfer
@@ -228,12 +189,6 @@ class CheckoutValidator implements CheckoutValidatorInterface
         return $restCheckoutResponseTransfer;
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\CheckoutResponseTransfer $checkoutResponseTransfer
-     * @param \Generated\Shared\Transfer\RestCheckoutResponseTransfer $restCheckoutResponseTransfer
-     *
-     * @return \Generated\Shared\Transfer\RestCheckoutResponseTransfer
-     */
     protected function copyCheckoutResponseErrors(
         CheckoutResponseTransfer $checkoutResponseTransfer,
         RestCheckoutResponseTransfer $restCheckoutResponseTransfer
@@ -250,12 +205,6 @@ class CheckoutValidator implements CheckoutValidatorInterface
         return $restCheckoutResponseTransfer->setIsSuccess(false);
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\CheckoutDataTransfer $checkoutDataTransfer
-     * @param \Generated\Shared\Transfer\RestCheckoutResponseTransfer $restCheckoutResponseTransfer
-     *
-     * @return \Generated\Shared\Transfer\RestCheckoutResponseTransfer
-     */
     protected function getRestCheckoutResponse(
         CheckoutDataTransfer $checkoutDataTransfer,
         RestCheckoutResponseTransfer $restCheckoutResponseTransfer
@@ -273,11 +222,6 @@ class CheckoutValidator implements CheckoutValidatorInterface
             );
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\QuoteTransfer|null $quoteTransfer
-     *
-     * @return \Generated\Shared\Transfer\RestCheckoutResponseTransfer
-     */
     protected function validateQuoteInCheckout(?QuoteTransfer $quoteTransfer): RestCheckoutResponseTransfer
     {
         if (!$quoteTransfer) {
@@ -301,9 +245,6 @@ class CheckoutValidator implements CheckoutValidatorInterface
             ->setIsSuccess(true);
     }
 
-    /**
-     * @return \Generated\Shared\Transfer\RestCheckoutResponseTransfer
-     */
     protected function createCheckoutCartNotFoundErrorResponse(): RestCheckoutResponseTransfer
     {
         return (new RestCheckoutResponseTransfer())
@@ -314,9 +255,6 @@ class CheckoutValidator implements CheckoutValidatorInterface
             );
     }
 
-    /**
-     * @return \Generated\Shared\Transfer\RestCheckoutDataResponseTransfer
-     */
     protected function createCheckoutDataCartNotFoundErrorResponse(): RestCheckoutDataResponseTransfer
     {
         return (new RestCheckoutDataResponseTransfer())
@@ -327,9 +265,6 @@ class CheckoutValidator implements CheckoutValidatorInterface
             );
     }
 
-    /**
-     * @return \Generated\Shared\Transfer\RestCheckoutResponseTransfer
-     */
     protected function createCartIsEmptyErrorResponse(): RestCheckoutResponseTransfer
     {
         return (new RestCheckoutResponseTransfer())
@@ -340,12 +275,6 @@ class CheckoutValidator implements CheckoutValidatorInterface
             );
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\QuoteResponseTransfer $quoteResponseTransfer
-     * @param string $errorIdentifier
-     *
-     * @return \Generated\Shared\Transfer\RestCheckoutResponseTransfer
-     */
     protected function createQuoteResponseError(
         QuoteResponseTransfer $quoteResponseTransfer,
         string $errorIdentifier

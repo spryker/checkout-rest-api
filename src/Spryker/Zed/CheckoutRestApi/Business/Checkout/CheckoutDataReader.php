@@ -65,11 +65,6 @@ class CheckoutDataReader implements CheckoutDataReaderInterface
         $this->quoteMapperPlugins = $quoteMapperPlugins;
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\RestCheckoutRequestAttributesTransfer $restCheckoutRequestAttributesTransfer
-     *
-     * @return \Generated\Shared\Transfer\RestCheckoutDataResponseTransfer
-     */
     public function getCheckoutData(RestCheckoutRequestAttributesTransfer $restCheckoutRequestAttributesTransfer): RestCheckoutDataResponseTransfer
     {
         $restCheckoutDataResponseTransfer = $this->checkoutValidator->validateCheckoutData($restCheckoutRequestAttributesTransfer);
@@ -94,11 +89,6 @@ class CheckoutDataReader implements CheckoutDataReaderInterface
             ->setCheckoutData($restCheckoutDataTransfer);
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\QuoteTransfer $quoteTransfer
-     *
-     * @return \Generated\Shared\Transfer\QuoteTransfer
-     */
     protected function recalculateQuote(QuoteTransfer $quoteTransfer): QuoteTransfer
     {
         $quoteTransfer->requireStore()
@@ -110,12 +100,6 @@ class CheckoutDataReader implements CheckoutDataReaderInterface
         return $this->calculationFacade->recalculateQuote($quoteTransfer, $this->checkoutRestApiConfig->shouldExecuteQuotePostRecalculationPlugins());
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\RestCheckoutRequestAttributesTransfer $restCheckoutRequestAttributesTransfer
-     * @param \Generated\Shared\Transfer\QuoteTransfer $quoteTransfer
-     *
-     * @return \Generated\Shared\Transfer\QuoteTransfer
-     */
     protected function executeQuoteMapperPlugins(
         RestCheckoutRequestAttributesTransfer $restCheckoutRequestAttributesTransfer,
         QuoteTransfer $quoteTransfer

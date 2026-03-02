@@ -88,11 +88,6 @@ class CheckoutRestApiDependencyProvider extends AbstractBundleDependencyProvider
      */
     public const PLUGINS_CHECKOUT_DATA_EXPANDER = 'PLUGINS_CHECKOUT_DATA_EXPANDER';
 
-    /**
-     * @param \Spryker\Zed\Kernel\Container $container
-     *
-     * @return \Spryker\Zed\Kernel\Container
-     */
     public function provideBusinessLayerDependencies(Container $container): Container
     {
         $container = parent::provideBusinessLayerDependencies($container);
@@ -113,11 +108,6 @@ class CheckoutRestApiDependencyProvider extends AbstractBundleDependencyProvider
         return $container;
     }
 
-    /**
-     * @param \Spryker\Zed\Kernel\Container $container
-     *
-     * @return \Spryker\Zed\Kernel\Container
-     */
     protected function addCartFacade(Container $container): Container
     {
         $container->set(static::FACADE_CART, function (Container $container) {
@@ -127,11 +117,6 @@ class CheckoutRestApiDependencyProvider extends AbstractBundleDependencyProvider
         return $container;
     }
 
-    /**
-     * @param \Spryker\Zed\Kernel\Container $container
-     *
-     * @return \Spryker\Zed\Kernel\Container
-     */
     protected function addCartsRestApiFacade(Container $container): Container
     {
         $container->set(static::FACADE_CARTS_REST_API, function (Container $container) {
@@ -141,11 +126,6 @@ class CheckoutRestApiDependencyProvider extends AbstractBundleDependencyProvider
         return $container;
     }
 
-    /**
-     * @param \Spryker\Zed\Kernel\Container $container
-     *
-     * @return \Spryker\Zed\Kernel\Container
-     */
     protected function addCheckoutFacade(Container $container): Container
     {
         $container->set(static::FACADE_CHECKOUT, function (Container $container) {
@@ -155,11 +135,6 @@ class CheckoutRestApiDependencyProvider extends AbstractBundleDependencyProvider
         return $container;
     }
 
-    /**
-     * @param \Spryker\Zed\Kernel\Container $container
-     *
-     * @return \Spryker\Zed\Kernel\Container
-     */
     protected function addCustomerFacade(Container $container): Container
     {
         $container->set(static::FACADE_CUSTOMER, function (Container $container) {
@@ -169,11 +144,6 @@ class CheckoutRestApiDependencyProvider extends AbstractBundleDependencyProvider
         return $container;
     }
 
-    /**
-     * @param \Spryker\Zed\Kernel\Container $container
-     *
-     * @return \Spryker\Zed\Kernel\Container
-     */
     protected function addPaymentFacade(Container $container): Container
     {
         $container->set(static::FACADE_PAYMENT, function (Container $container) {
@@ -183,11 +153,6 @@ class CheckoutRestApiDependencyProvider extends AbstractBundleDependencyProvider
         return $container;
     }
 
-    /**
-     * @param \Spryker\Zed\Kernel\Container $container
-     *
-     * @return \Spryker\Zed\Kernel\Container
-     */
     protected function addQuoteFacade(Container $container): Container
     {
         $container->set(static::FACADE_QUOTE, function (Container $container) {
@@ -197,11 +162,6 @@ class CheckoutRestApiDependencyProvider extends AbstractBundleDependencyProvider
         return $container;
     }
 
-    /**
-     * @param \Spryker\Zed\Kernel\Container $container
-     *
-     * @return \Spryker\Zed\Kernel\Container
-     */
     protected function addShipmentFacade(Container $container): Container
     {
         $container->set(static::FACADE_SHIPMENT, function (Container $container) {
@@ -211,11 +171,6 @@ class CheckoutRestApiDependencyProvider extends AbstractBundleDependencyProvider
         return $container;
     }
 
-    /**
-     * @param \Spryker\Zed\Kernel\Container $container
-     *
-     * @return \Spryker\Zed\Kernel\Container
-     */
     protected function addCalculationFacade(Container $container): Container
     {
         $container->set(static::FACADE_CALCULATION, function (Container $container) {
@@ -225,11 +180,6 @@ class CheckoutRestApiDependencyProvider extends AbstractBundleDependencyProvider
         return $container;
     }
 
-    /**
-     * @param \Spryker\Zed\Kernel\Container $container
-     *
-     * @return \Spryker\Zed\Kernel\Container
-     */
     protected function addQuoteMapperPlugins(Container $container): Container
     {
         $container->set(static::PLUGINS_QUOTE_MAPPER, function () {
@@ -239,11 +189,6 @@ class CheckoutRestApiDependencyProvider extends AbstractBundleDependencyProvider
         return $container;
     }
 
-    /**
-     * @param \Spryker\Zed\Kernel\Container $container
-     *
-     * @return \Spryker\Zed\Kernel\Container
-     */
     protected function addCheckoutDataValidatorPlugins(Container $container): Container
     {
         $container->set(static::PLUGINS_CHECKOUT_DATA_VALIDATOR, function () {
@@ -253,11 +198,6 @@ class CheckoutRestApiDependencyProvider extends AbstractBundleDependencyProvider
         return $container;
     }
 
-    /**
-     * @param \Spryker\Zed\Kernel\Container $container
-     *
-     * @return \Spryker\Zed\Kernel\Container
-     */
     protected function addCheckoutDataValidatorPluginsForOrderAmendment(Container $container): Container
     {
         $container->set(static::PLUGINS_CHECKOUT_DATA_VALIDATOR_FOR_ORDER_AMENDMENT, function () {
@@ -267,11 +207,6 @@ class CheckoutRestApiDependencyProvider extends AbstractBundleDependencyProvider
         return $container;
     }
 
-    /**
-     * @param \Spryker\Zed\Kernel\Container $container
-     *
-     * @return \Spryker\Zed\Kernel\Container
-     */
     protected function addReadCheckoutDataValidatorPlugins(Container $container): Container
     {
         $container->set(static::PLUGINS_READ_CHECKOUT_DATA_VALIDATOR, function () {
@@ -281,11 +216,6 @@ class CheckoutRestApiDependencyProvider extends AbstractBundleDependencyProvider
         return $container;
     }
 
-    /**
-     * @param \Spryker\Zed\Kernel\Container $container
-     *
-     * @return \Spryker\Zed\Kernel\Container
-     */
     protected function addCheckoutDataExpanderPlugins(Container $container): Container
     {
         $container->set(static::PLUGINS_CHECKOUT_DATA_EXPANDER, function () {

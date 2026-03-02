@@ -29,9 +29,6 @@ class SinglePaymentCheckoutRequestAttributesValidatorPluginTest extends Unit
      */
     protected $singlePaymentCheckoutRequestValidatorPlugin;
 
-    /**
-     * @return void
-     */
     protected function setUp(): void
     {
         parent::setUp();
@@ -39,9 +36,6 @@ class SinglePaymentCheckoutRequestAttributesValidatorPluginTest extends Unit
         $this->singlePaymentCheckoutRequestValidatorPlugin = new SinglePaymentCheckoutRequestAttributesValidatorPlugin();
     }
 
-    /**
-     * @return void
-     */
     public function testValidateAttributesWillNotReturnErrorIfOnlyOnePaymentMethodWasProvided(): void
     {
         // Arrange
@@ -54,9 +48,6 @@ class SinglePaymentCheckoutRequestAttributesValidatorPluginTest extends Unit
         $this->assertCount(0, $restErrorCollectionTransfer->getRestErrors());
     }
 
-    /**
-     * @return void
-     */
     public function testValidateAttributesWillNotReturnErrorWithExpectedCodeIfMoreThanOnePaymentMethodWasProvided(): void
     {
         // Arrange

@@ -11,10 +11,5 @@ use Generated\Shared\Transfer\CustomerResponseTransfer;
 
 interface CheckoutRestApiToCustomerFacadeInterface
 {
-    /**
-     * @param string $customerReference
-     *
-     * @return \Generated\Shared\Transfer\CustomerResponseTransfer
-     */
     public function findCustomerByReference(string $customerReference): CustomerResponseTransfer;
 }
