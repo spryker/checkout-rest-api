@@ -1,0 +1,86 @@
+post:
+    idCart:
+        - NotBlank
+    customer:
+        - Optional:
+              constraints:
+                  - Collection:
+                        allowExtraFields: true
+                        fields:
+                            salutation:
+                                - NotBlank
+                            email:
+                                - NotBlank:
+                                      message: 'Email is invalid.'
+                                - Email:
+                                      message: 'Email is invalid.'
+    billingAddress:
+        - Optional:
+              constraints:
+                  - Collection:
+                        allowExtraFields: true
+                        allowMissingFields: true
+                        fields:
+                            salutation:
+                                - NotBlank
+                            firstName:
+                                - NotBlank
+                            lastName:
+                                - NotBlank
+                            address1:
+                                - NotBlank
+                            address2:
+                                - NotBlank
+                            zipCode:
+                                - NotBlank
+                            city:
+                                - NotBlank
+                                - Length:
+                                      min: 3
+                            iso2Code:
+                                - NotBlank
+    shippingAddress:
+        - Optional:
+              constraints:
+                  - Collection:
+                        allowExtraFields: true
+                        fields:
+                            salutation:
+                                - NotBlank
+                            firstName:
+                                - NotBlank
+                            lastName:
+                                - NotBlank
+                            address1:
+                                - NotBlank
+                            address2:
+                                - NotBlank
+                            zipCode:
+                                - NotBlank
+                            city:
+                                - NotBlank
+                                - Length:
+                                      min: 3
+                            iso2Code:
+                                - NotBlank
+    payments:
+        - Optional:
+              constraints:
+                  - All:
+                        constraints:
+                            - Collection:
+                                  allowExtraFields: true
+                                  fields:
+                                      paymentMethodName:
+                                          - NotBlank
+                                      paymentProviderName:
+                                          - NotBlank
+    shipment:
+        - Optional:
+              constraints:
+                  - Collection:
+                        allowExtraFields: true
+                        fields:
+                            idShipmentMethod:
+                                - Type:
+                                      type: numeric

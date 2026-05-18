@@ -1,0 +1,199 @@
+resource:
+    name: Checkout
+    shortName: checkout
+    description: 'Place an order for an authenticated customer or guest checkout.'
+
+    processor: Spryker\Glue\CheckoutRestApi\Api\Storefront\Processor\CheckoutStorefrontProcessor
+
+    security: "is_granted('ROLE_CUSTOMER')"
+    securityAnonymousAuthRequired: true
+
+    operations:
+        - type: Post
+          uriTemplate: '/checkout'
+          description: 'Place an order for the cart identified by `idCart`.'
+          normalizationContext:
+              gen_id: false
+
+    includes:
+        - relationshipName: orders
+          targetResource: Orders
+          uriVariableMappings:
+              orderReferences: orderReference
+
+    properties:
+        checkoutId:
+            type: string
+            identifier: true
+            writable: false
+            readable: false
+            required: false
+            description: 'Synthetic identifier; never serialized.'
+            openapiContext:
+                example: '0'
+
+        idCart:
+            type: string
+            writable: true
+            readable: false
+            required: false
+            description: 'UUID of the cart to be used for checkout.'
+            openapiContext:
+                example: '1ce91011-8d60-59ef-9fe0-4493ef36c4f0'
+
+        customer:
+            type: array
+            nullable: true
+            writable: true
+            readable: false
+            required: false
+            description: 'Customer data for the checkout.'
+            openapiContext:
+                example:
+                    salutation: 'Mr'
+                    firstName: 'John'
+                    lastName: 'Doe'
+                    email: 'john.doe@example.com'
+
+        billingAddress:
+            type: array
+            nullable: true
+            writable: true
+            readable: false
+            required: false
+            description: 'Billing address for the order.'
+            openapiContext:
+                example:
+                    salutation: 'Mr'
+                    firstName: 'John'
+                    lastName: 'Doe'
+                    address1: 'Main Street'
+                    address2: '1'
+                    zipCode: '10115'
+                    city: 'Berlin'
+                    iso2Code: 'DE'
+                    phone: '+49 30 123456'
+                    email: 'john.doe@example.com'
+
+        shippingAddress:
+            type: array
+            nullable: true
+            writable: true
+            readable: false
+            required: false
+            description: 'Shipping address for the order.'
+            openapiContext:
+                example:
+                    salutation: 'Mr'
+                    firstName: 'John'
+                    lastName: 'Doe'
+                    address1: 'Main Street'
+                    address2: '1'
+                    zipCode: '10115'
+                    city: 'Berlin'
+                    iso2Code: 'DE'
+                    phone: '+49 30 123456'
+                    email: 'john.doe@example.com'
+
+        payments:
+            type: array
+            nullable: true
+            writable: true
+            readable: false
+            required: false
+            description: 'Payment details for the order.'
+            openapiContext:
+                example:
+                    - paymentMethodName: 'invoice'
+                      paymentProviderName: 'DummyPayment'
+
+        shipment:
+            type: array
+            nullable: true
+            writable: true
+            readable: false
+            required: false
+            description: 'Single-shipment details for the order.'
+            openapiContext:
+                example:
+                    idShipmentMethod: 1
+
+        shipments:
+            type: array
+            nullable: true
+            writable: true
+            readable: false
+            required: false
+            description: 'Split-shipment details for the order.'
+            openapiContext:
+                example:
+                    - items: ['c4ca4238a0b923820dcc509a6f75849b']
+                      shippingAddress:
+                          salutation: 'Mr'
+                          firstName: 'John'
+                          lastName: 'Doe'
+                          address1: 'Main Street'
+                          zipCode: '10115'
+                          city: 'Berlin'
+                          iso2Code: 'DE'
+                      idShipmentMethod: 1
+                      requestedDeliveryDate: null
+
+        items:
+            type: array
+            nullable: true
+            writable: true
+            readable: false
+            required: false
+            description: 'List of item identifiers for single-shipment checkout.'
+            openapiContext:
+                example:
+                    - 'c4ca4238a0b923820dcc509a6f75849b'
+
+        servicePoints:
+            type: array
+            nullable: true
+            writable: true
+            readable: false
+            required: false
+            description: 'Service-point assignments per item group.'
+            openapiContext:
+                example:
+                    - idServicePoint: '3fec586e-92f6-5692-a98b-dfca29cd2e16'
+                      items: ['c4ca4238a0b923820dcc509a6f75849b']
+
+        orderReference:
+            type: string
+            writable: false
+            readable: true
+            required: false
+            description: 'Unique reference identifier for the placed order.'
+            openapiContext:
+                example: 'DE--1'
+
+        # Feeds the `orders` relationship as a JSON:API to-many array (legacy contract emits
+        # `relationships.orders.data[0]` even for a single placed order). Not part of the response body.
+        orderReferences:
+            type: array
+            writable: false
+            readable: false
+            required: false
+            description: 'Order references for the `orders` relationship.'
+
+        redirectUrl:
+            type: string
+            writable: false
+            readable: true
+            required: false
+            description: 'URL the user should be redirected to after order placement.'
+            openapiContext:
+                example: 'https://payment-provider.example.com/redirect'
+
+        isExternalRedirect:
+            type: boolean
+            writable: false
+            readable: true
+            required: false
+            description: 'Flag indicating whether the redirect points to an external URL.'
+            openapiContext:
+                example: false

@@ -1,0 +1,305 @@
+resource:
+    name: CheckoutData
+    shortName: checkout-data
+    description: 'Provide checkout data — available addresses, shipment methods, payment methods.'
+
+    processor: Spryker\Glue\CheckoutRestApi\Api\Storefront\Processor\CheckoutDataStorefrontProcessor
+
+    security: "is_granted('ROLE_CUSTOMER')"
+    securityAnonymousAuthRequired: true
+
+    operations:
+        - type: Post
+          status: 200
+          uriTemplate: '/checkout-data'
+          description: 'Retrieve checkout data including available payment and shipment methods.'
+          normalizationContext:
+              gen_id: false
+
+    includes:
+        - relationshipName: shipments
+          targetResource: Shipments
+          resolverClass: Spryker\Glue\CheckoutRestApi\Api\Storefront\Relationship\CheckoutDataShipmentsRelationshipResolver
+        - relationshipName: shipment-methods
+          targetResource: ShipmentMethods
+          resolverClass: Spryker\Glue\CheckoutRestApi\Api\Storefront\Relationship\CheckoutDataShipmentMethodsRelationshipResolver
+        - relationshipName: shipment-types
+          targetResource: ShipmentTypes
+          resolverClass: Spryker\Glue\CheckoutRestApi\Api\Storefront\Relationship\CheckoutDataShipmentTypesRelationshipResolver
+        - relationshipName: company-business-unit-addresses
+          targetResource: CompanyBusinessUnitAddresses
+          uriVariableMappings:
+              companyBusinessUnitAddressUuids: uuid
+
+    properties:
+        checkoutDataId:
+            type: string
+            identifier: true
+            writable: false
+            readable: false
+            required: false
+            description: 'Synthetic identifier; never serialized.'
+            openapiContext:
+                example: '0'
+
+        idCart:
+            type: string
+            writable: true
+            readable: false
+            required: false
+            description: 'UUID of the cart to retrieve checkout data for.'
+            openapiContext:
+                example: '1ce91011-8d60-59ef-9fe0-4493ef36c4f0'
+
+        customer:
+            type: array
+            nullable: true
+            writable: true
+            readable: false
+            required: false
+            description: 'Customer data for the checkout.'
+            openapiContext:
+                example:
+                    salutation: 'Mr'
+                    firstName: 'John'
+                    lastName: 'Doe'
+                    email: 'john.doe@example.com'
+
+        billingAddress:
+            type: array
+            nullable: true
+            writable: true
+            readable: false
+            required: false
+            description: 'Billing address for the order.'
+            openapiContext:
+                example:
+                    salutation: 'Mr'
+                    firstName: 'John'
+                    lastName: 'Doe'
+                    address1: 'Main Street'
+                    address2: '1'
+                    zipCode: '10115'
+                    city: 'Berlin'
+                    iso2Code: 'DE'
+                    phone: '+49 30 123456'
+                    email: 'john.doe@example.com'
+
+        shippingAddress:
+            type: array
+            nullable: true
+            writable: true
+            readable: false
+            required: false
+            description: 'Shipping address for the order.'
+            openapiContext:
+                example:
+                    salutation: 'Mr'
+                    firstName: 'John'
+                    lastName: 'Doe'
+                    address1: 'Main Street'
+                    address2: '1'
+                    zipCode: '10115'
+                    city: 'Berlin'
+                    iso2Code: 'DE'
+                    phone: '+49 30 123456'
+                    email: 'john.doe@example.com'
+
+        payments:
+            type: array
+            nullable: true
+            writable: true
+            readable: false
+            required: false
+            description: 'Payment details for the order.'
+            openapiContext:
+                example:
+                    - paymentMethodName: 'invoice'
+                      paymentProviderName: 'DummyPayment'
+
+        shipment:
+            type: array
+            nullable: true
+            writable: true
+            readable: false
+            required: false
+            description: 'Single-shipment details for the order.'
+            openapiContext:
+                example:
+                    idShipmentMethod: 1
+
+        shipments:
+            type: array
+            nullable: true
+            writable: true
+            readable: false
+            required: false
+            description: 'Split-shipment details for the order.'
+            openapiContext:
+                example:
+                    - items: ['c4ca4238a0b923820dcc509a6f75849b']
+                      shippingAddress:
+                          salutation: 'Mr'
+                          firstName: 'John'
+                          lastName: 'Doe'
+                          address1: 'Main Street'
+                          zipCode: '10115'
+                          city: 'Berlin'
+                          iso2Code: 'DE'
+                      idShipmentMethod: 1
+                      requestedDeliveryDate: null
+
+        items:
+            type: array
+            nullable: true
+            writable: true
+            readable: false
+            required: false
+            description: 'List of item identifiers for single-shipment checkout.'
+            openapiContext:
+                example:
+                    - 'c4ca4238a0b923820dcc509a6f75849b'
+
+        servicePoints:
+            type: array
+            nullable: true
+            writable: true
+            readable: false
+            required: false
+            description: 'Service-point assignments per item group.'
+            openapiContext:
+                example:
+                    - idServicePoint: '3fec586e-92f6-5692-a98b-dfca29cd2e16'
+                      items: ['c4ca4238a0b923820dcc509a6f75849b']
+
+        addresses:
+            type: array
+            writable: false
+            readable: true
+            required: false
+            description: 'Available customer addresses.'
+            openapiContext:
+                example:
+                    - id: '1ce91011-8d60-59ef-9fe0-4493ef36c4f0'
+                      salutation: 'Mr'
+                      firstName: 'John'
+                      lastName: 'Doe'
+                      address1: 'Main Street'
+                      address2: '1'
+                      zipCode: '10115'
+                      city: 'Berlin'
+                      country: 'Germany'
+                      iso2Code: 'DE'
+                      phone: '+49 30 123456'
+                      isDefaultBilling: true
+                      isDefaultShipping: true
+
+        paymentProviders:
+            type: array
+            writable: false
+            readable: true
+            required: false
+            description: 'Available payment providers with their methods.'
+            openapiContext:
+                example:
+                    - paymentProviderName: 'DummyPayment'
+                      paymentMethods:
+                          - paymentMethodName: 'invoice'
+                            paymentProviderName: 'DummyPayment'
+                            requiredRequestData:
+                                - 'paymentMethod'
+                                - 'paymentProvider'
+
+        shipmentMethods:
+            type: array
+            writable: false
+            readable: true
+            required: false
+            description: 'Available shipment methods.'
+            openapiContext:
+                example:
+                    - id: 1
+                      name: 'Standard'
+                      carrierName: 'Spryker Dummy Shipment'
+                      price: 490
+                      taxRate: 19
+                      shipmentType: 'delivery'
+                      currencyIsoCode: 'EUR'
+
+        selectedShipmentMethods:
+            type: array
+            writable: false
+            readable: true
+            required: false
+            description: 'Currently selected shipment methods.'
+            openapiContext:
+                example:
+                    - id: 1
+                      name: 'Standard'
+                      carrierName: 'Spryker Dummy Shipment'
+                      price: 490
+                      taxRate: 19
+                      shipmentType: 'delivery'
+                      currencyIsoCode: 'EUR'
+
+        selectedPaymentMethods:
+            type: array
+            writable: false
+            readable: true
+            required: false
+            description: 'Currently selected payment methods.'
+            openapiContext:
+                example:
+                    - paymentMethodName: 'invoice'
+                      paymentProviderName: 'DummyPayment'
+
+        selectedShipmentTypes:
+            type: array
+            writable: false
+            readable: true
+            required: false
+            description: 'Currently selected shipment types per item.'
+            openapiContext:
+                example:
+                    - idShipmentType: 1
+                      name: 'Delivery'
+                      key: 'delivery'
+
+        selectedServicePoints:
+            type: array
+            writable: false
+            readable: true
+            required: false
+            description: 'Currently selected service points per item group.'
+            openapiContext:
+                example:
+                    - idServicePoint: '3fec586e-92f6-5692-a98b-dfca29cd2e16'
+                      items: ['c4ca4238a0b923820dcc509a6f75849b']
+
+        shipmentsRelationshipData:
+            type: array
+            writable: false
+            readable: false
+            required: false
+            description: 'Pre-computed shipment-group rows; consumed by `CheckoutDataShipmentsRelationshipResolver`.'
+
+        shipmentMethodsRelationshipData:
+            type: array
+            writable: false
+            readable: false
+            required: false
+            description: 'Pre-computed available shipment methods; consumed by `CheckoutDataShipmentMethodsRelationshipResolver`.'
+
+        shipmentTypesRelationshipData:
+            type: array
+            writable: false
+            readable: false
+            required: false
+            description: 'Pre-computed shipment types; consumed by `CheckoutDataShipmentTypesRelationshipResolver`.'
+
+        companyBusinessUnitAddressUuids:
+            type: array
+            writable: false
+            readable: false
+            required: false
+            description: 'UUIDs of company business unit addresses, fanned out into the `company-business-unit-addresses` include via array URI variable mapping.'
