@@ -5,7 +5,7 @@ resource:
 
     processor: Spryker\Glue\CheckoutRestApi\Api\Storefront\Processor\CheckoutStorefrontProcessor
 
-    security: "is_granted('ROLE_CUSTOMER')"
+    security: "is_granted('CUSTOMER_ACCESS') and is_granted('ROLE_CUSTOMER')"
     securityAnonymousAuthRequired: true
 
     operations:
