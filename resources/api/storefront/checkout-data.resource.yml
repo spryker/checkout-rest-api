@@ -30,6 +30,9 @@ resource:
           targetResource: CompanyBusinessUnitAddresses
           uriVariableMappings:
               companyBusinessUnitAddressUuids: uuid
+        - relationshipName: service-points
+          targetResource: ServicePoints
+          resolverClass: Spryker\Glue\CheckoutRestApi\Api\Storefront\Relationship\CheckoutDataServicePointsRelationshipResolver
 
     properties:
         checkoutDataId:
@@ -296,6 +299,13 @@ resource:
             readable: false
             required: false
             description: 'Pre-computed shipment types; consumed by `CheckoutDataShipmentTypesRelationshipResolver`.'
+
+        servicePointsRelationshipData:
+            type: array
+            writable: false
+            readable: false
+            required: false
+            description: 'Pre-computed service points; consumed by `CheckoutDataServicePointsRelationshipResolver`.'
 
         companyBusinessUnitAddressUuids:
             type: array

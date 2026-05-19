@@ -78,6 +78,7 @@ class CheckoutDataResourceMapper
         $resource->shipmentMethodsRelationshipData = $this->mapAvailableShipmentMethodsRelationshipData($restCheckoutDataTransfer);
         $resource->shipmentTypesRelationshipData = $this->mapShipmentTypesRelationshipData($restCheckoutDataTransfer);
         $resource->companyBusinessUnitAddressUuids = $this->mapCompanyBusinessUnitAddressUuids($restCheckoutDataTransfer);
+        $resource->servicePointsRelationshipData = $this->mapServicePointsRelationshipData($restCheckoutDataTransfer);
 
         return $resource;
     }
@@ -213,6 +214,30 @@ class CheckoutDataResourceMapper
         }
 
         return array_values($shipmentTypesByUuid);
+    }
+
+    /**
+     * @return array<int, array<string, mixed>>
+     */
+    protected function mapServicePointsRelationshipData(RestCheckoutDataTransfer $restCheckoutDataTransfer): array
+    {
+        $rows = [];
+
+        foreach ($restCheckoutDataTransfer->getServicePoints() as $servicePointTransfer) {
+            $uuid = $servicePointTransfer->getUuid();
+
+            if ($uuid === null) {
+                continue;
+            }
+
+            $rows[] = [
+                'uuid' => $uuid,
+                'name' => $servicePointTransfer->getName(),
+                'key' => $servicePointTransfer->getKey(),
+            ];
+        }
+
+        return $rows;
     }
 
     /**
