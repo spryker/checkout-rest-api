@@ -19,10 +19,10 @@ resource:
     includes:
         - relationshipName: shipments
           targetResource: Shipments
-          resolverClass: Spryker\Glue\CheckoutRestApi\Api\Storefront\Relationship\CheckoutDataShipmentsRelationshipResolver
+          resolverClass: Spryker\Glue\ShipmentsRestApi\Api\Storefront\Relationship\CheckoutDataShipmentsRelationshipResolver
         - relationshipName: shipment-methods
           targetResource: ShipmentMethods
-          resolverClass: Spryker\Glue\CheckoutRestApi\Api\Storefront\Relationship\CheckoutDataShipmentMethodsRelationshipResolver
+          resolverClass: Spryker\Glue\ShipmentsRestApi\Api\Storefront\Relationship\CheckoutDataShipmentMethodsRelationshipResolver
         - relationshipName: shipment-types
           targetResource: ShipmentTypes
           resolverClass: Spryker\Glue\CheckoutRestApi\Api\Storefront\Relationship\CheckoutDataShipmentTypesRelationshipResolver
@@ -279,19 +279,19 @@ resource:
                     - idServicePoint: '3fec586e-92f6-5692-a98b-dfca29cd2e16'
                       items: ['c4ca4238a0b923820dcc509a6f75849b']
 
-        shipmentsRelationshipData:
+        shipmentGroupContexts:
             type: array
             writable: false
             readable: false
             required: false
-            description: 'Pre-computed shipment-group rows; consumed by `CheckoutDataShipmentsRelationshipResolver`.'
+            description: 'Serialized `ShipmentGroupTransfer` arrays; consumed by `\Spryker\Glue\ShipmentsRestApi\Api\Storefront\Relationship\CheckoutDataShipmentsRelationshipResolver` to assemble `shipments` resources.'
 
-        shipmentMethodsRelationshipData:
+        shipmentMethodContexts:
             type: array
             writable: false
             readable: false
             required: false
-            description: 'Pre-computed available shipment methods; consumed by `CheckoutDataShipmentMethodsRelationshipResolver`.'
+            description: 'Serialized `ShipmentMethodTransfer` arrays (deduped by id); consumed by `\Spryker\Glue\ShipmentsRestApi\Api\Storefront\Relationship\CheckoutDataShipmentMethodsRelationshipResolver` to assemble `shipment-methods` resources.'
 
         shipmentTypesRelationshipData:
             type: array
