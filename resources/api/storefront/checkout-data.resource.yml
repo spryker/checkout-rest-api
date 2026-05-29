@@ -33,6 +33,22 @@ resource:
         - relationshipName: service-points
           targetResource: ServicePoints
           resolverClass: Spryker\Glue\CheckoutRestApi\Api\Storefront\Relationship\CheckoutDataServicePointsRelationshipResolver
+        - relationshipName: addresses
+          targetResource: CustomersAddresses
+          resolverClass: Spryker\Glue\CustomersRestApi\Api\Storefront\Relationship\CheckoutDataAddressesRelationshipResolver
+        - relationshipName: carts
+          targetResource: Carts
+          uriTemplate: /carts/{uuid}
+          uriVariableMappings:
+              cartUuid: uuid
+        - relationshipName: guest-carts
+          targetResource: GuestCarts
+          uriTemplate: /guest-carts/{uuid}
+          uriVariableMappings:
+              guestCartUuid: uuid
+        - relationshipName: payment-methods
+          targetResource: PaymentMethods
+          resolverClass: Spryker\Glue\PaymentsRestApi\Api\Storefront\Relationship\CheckoutDataPaymentMethodsRelationshipResolver
 
     properties:
         checkoutDataId:
@@ -306,6 +322,36 @@ resource:
             readable: false
             required: false
             description: 'Pre-computed service points; consumed by `CheckoutDataServicePointsRelationshipResolver`.'
+
+        addressesRelationshipData:
+            type: array
+            writable: false
+            readable: false
+            required: false
+            description: 'Raw customer address rows feeding the `addresses` relationship; consumed by `CheckoutDataAddressesRelationshipResolver`. Not part of the JSON:API response body (the `addresses` attribute carries the inline copy).'
+
+        cartUuid:
+            type: string
+            nullable: true
+            writable: false
+            readable: false
+            required: false
+            description: 'Quote UUID feeding the `carts` relationship for authorised customers (null for guests). Internal only — not part of the JSON:API response body.'
+
+        guestCartUuid:
+            type: string
+            nullable: true
+            writable: false
+            readable: false
+            required: false
+            description: 'Quote UUID feeding the `guest-carts` relationship for guests (null for authorised customers). Internal only — not part of the JSON:API response body.'
+
+        paymentMethodsRelationshipData:
+            type: array
+            writable: false
+            readable: false
+            required: false
+            description: 'Raw available payment-method rows feeding the `payment-methods` relationship; consumed by `CheckoutDataPaymentMethodsRelationshipResolver`. Not part of the JSON:API response body.'
 
         companyBusinessUnitAddressUuids:
             type: array

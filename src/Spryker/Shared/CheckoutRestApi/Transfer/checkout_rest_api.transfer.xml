@@ -9,6 +9,7 @@
         <property name="quote" type="Quote" description="A data object representing a shopping cart before it becomes an order."/>
         <property name="availableShipmentMethods" type="ShipmentMethodsCollection" description="A collection of shipment methods that are available for a given quote or order."/>
         <property name="companyBusinessUnitAddresses" type="CompanyUnitAddressCollection" description="A collection of addresses for a company business unit."/>
+        <property name="servicePoints" type="ServicePoint[]" singular="servicePoint" strict="true" description="A collection of service points."/>
     </transfer>
 
     <transfer name="RestCheckoutError">
@@ -296,6 +297,7 @@
 
     <transfer name="ShipmentGroup">
         <property name="hash" type="string"/>
+        <property name="availableShipmentMethods" type="ShipmentMethods" description="A collection of shipment methods that are available for a given quote or order."/>
     </transfer>
 
     <transfer name="Locale">
@@ -304,6 +306,8 @@
 
     <transfer name="ShipmentType" strict="true">
         <property name="key" type="string"/>
+        <property name="uuid" type="string"/>
+        <property name="name" type="string"/>
     </transfer>
 
     <transfer name="CompanyUnitAddressCollection">
@@ -311,6 +315,13 @@
     </transfer>
 
     <transfer name="CompanyUnitAddress">
+        <property name="uuid" type="string"/>
+    </transfer>
+
+    <transfer name="ServicePoint" strict="true">
+        <property name="uuid" type="string"/>
+        <property name="name" type="string"/>
+        <property name="key" type="string"/>
     </transfer>
 
 </transfers>

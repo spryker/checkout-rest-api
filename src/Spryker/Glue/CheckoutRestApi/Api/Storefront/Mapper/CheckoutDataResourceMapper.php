@@ -78,8 +78,72 @@ class CheckoutDataResourceMapper
         $resource->shipmentTypesRelationshipData = $this->mapShipmentTypesRelationshipData($restCheckoutDataTransfer);
         $resource->companyBusinessUnitAddressUuids = $this->mapCompanyBusinessUnitAddressUuids($restCheckoutDataTransfer);
         $resource->servicePointsRelationshipData = $this->mapServicePointsRelationshipData($restCheckoutDataTransfer);
+        $resource->addressesRelationshipData = $this->mapAddressesRelationshipData($restCheckoutDataTransfer);
+        $resource->paymentMethodsRelationshipData = $this->mapPaymentMethodsRelationshipData($restCheckoutDataTransfer);
+        $resource->cartUuid = $this->resolveQuoteUuidForRelationship($restCheckoutDataTransfer, false);
+        $resource->guestCartUuid = $this->resolveQuoteUuidForRelationship($restCheckoutDataTransfer, true);
 
         return $resource;
+    }
+
+    /**
+     * @return array<int, array<string, mixed>>
+     */
+    protected function mapPaymentMethodsRelationshipData(RestCheckoutDataTransfer $restCheckoutDataTransfer): array
+    {
+        $availablePaymentMethodsTransfer = $restCheckoutDataTransfer->getAvailablePaymentMethods();
+
+        if ($availablePaymentMethodsTransfer === null) {
+            return [];
+        }
+
+        $rows = [];
+
+        foreach ($availablePaymentMethodsTransfer->getMethods() as $paymentMethodTransfer) {
+            $rows[] = $paymentMethodTransfer->toArray(true, true);
+        }
+
+        return $rows;
+    }
+
+    protected function resolveQuoteUuidForRelationship(RestCheckoutDataTransfer $restCheckoutDataTransfer, bool $forGuest): ?string
+    {
+        $quoteTransfer = $restCheckoutDataTransfer->getQuote();
+
+        if ($quoteTransfer === null) {
+            return null;
+        }
+
+        if ((bool)$quoteTransfer->getCustomer()?->getIsGuest() !== $forGuest) {
+            return null;
+        }
+
+        return $quoteTransfer->getUuid();
+    }
+
+    /**
+     * @return array<int, array<string, mixed>>
+     */
+    protected function mapAddressesRelationshipData(RestCheckoutDataTransfer $restCheckoutDataTransfer): array
+    {
+        $addressesTransfer = $restCheckoutDataTransfer->getAddresses();
+
+        if ($addressesTransfer === null) {
+            return [];
+        }
+
+        $customerReference = $restCheckoutDataTransfer->getQuote()?->getCustomer()?->getCustomerReference();
+
+        $rows = [];
+
+        foreach ($addressesTransfer->getAddresses() as $addressTransfer) {
+            $rows[] = [
+                'address' => $addressTransfer->toArray(true, true),
+                'customerReference' => $customerReference,
+            ];
+        }
+
+        return $rows;
     }
 
     /**
