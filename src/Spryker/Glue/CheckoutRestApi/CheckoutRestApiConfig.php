@@ -19,81 +19,113 @@ use Symfony\Component\HttpFoundation\Response;
 class CheckoutRestApiConfig extends AbstractBundleConfig
 {
     /**
+     * @api
+     *
      * @var string
      */
     public const RESOURCE_CHECKOUT_DATA = 'checkout-data';
 
     /**
+     * @api
+     *
      * @var string
      */
     public const RESOURCE_CHECKOUT = 'checkout';
 
     /**
+     * @api
+     *
      * @var string
      */
     public const CONTROLLER_CHECKOUT_DATA = 'checkout-data-resource';
 
     /**
+     * @api
+     *
      * @var string
      */
     public const CONTROLLER_CHECKOUT = 'checkout-resource';
 
     /**
+     * @api
+     *
      * @var string
      */
     public const ACTION_CHECKOUT_DATA_POST = 'post';
 
     /**
+     * @api
+     *
      * @var string
      */
     public const ACTION_CHECKOUT_DATA_GET = 'get';
 
     /**
+     * @api
+     *
      * @var string
      */
     public const ACTION_CHECKOUT_POST = 'post';
 
     /**
+     * @api
+     *
      * @var string
      */
     public const ACTION_CHECKOUT_GET = 'get';
 
     /**
+     * @api
+     *
      * @var string
      */
     public const RESPONSE_CODE_CHECKOUT_DATA_INVALID = '1101';
 
     /**
+     * @api
+     *
      * @var string
      */
     public const RESPONSE_CODE_ORDER_NOT_PLACED = '1102';
 
     /**
+     * @api
+     *
      * @var string
      */
     public const RESPONSE_CODE_CART_NOT_FOUND = '1103';
 
     /**
+     * @api
+     *
      * @var string
      */
     public const RESPONSE_CODE_CART_IS_EMPTY = '1104';
 
     /**
+     * @api
+     *
      * @var string
      */
     public const RESPONSE_CODE_USER_IS_NOT_SPECIFIED = '1105';
 
     /**
+     * @api
+     *
      * @var string
      */
     public const RESPONSE_CODE_UNABLE_TO_DELETE_CART = '1106';
 
     /**
+     * @api
+     *
      * @var string
      */
     public const RESPONSE_CODE_MULTIPLE_PAYMENTS_NOT_ALLOWED = '1107';
 
     /**
+     * @api
+     *
      * @var string
      */
     public const RESPONSE_CODE_INVALID_PAYMENT = '1108';
@@ -106,41 +138,57 @@ class CheckoutRestApiConfig extends AbstractBundleConfig
     public const RESPONSE_CODE_CUSTOMER_DATA_MISSING = '1109';
 
     /**
+     * @api
+     *
      * @var string
      */
     public const RESPONSE_DETAILS_CHECKOUT_DATA_INVALID = 'Checkout data is invalid.';
 
     /**
+     * @api
+     *
      * @var string
      */
     public const RESPONSE_DETAILS_ORDER_NOT_PLACED = 'Order could not be placed.';
 
     /**
+     * @api
+     *
      * @var string
      */
     public const RESPONSE_DETAILS_CART_NOT_FOUND = 'Cart not found.';
 
     /**
+     * @api
+     *
      * @var string
      */
     public const RESPONSE_DETAILS_CART_IS_EMPTY = 'Cart is empty.';
 
     /**
+     * @api
+     *
      * @var string
      */
     public const RESPONSE_DETAILS_USER_IS_NOT_SPECIFIED = 'One of Authorization or X-Anonymous-Customer-Unique-Id headers is required.';
 
     /**
+     * @api
+     *
      * @var string
      */
     public const RESPONSE_DETAILS_UNABLE_TO_DELETE_CART = 'Unable to delete cart.';
 
     /**
+     * @api
+     *
      * @var string
      */
     public const RESPONSE_DETAILS_MULTIPLE_PAYMENTS_NOT_ALLOWED = 'Multiple payments are not allowed.';
 
     /**
+     * @api
+     *
      * @var string
      */
     public const RESPONSE_DETAILS_INVALID_PAYMENT = 'Payment method "%s" of payment provider "%s" is invalid';

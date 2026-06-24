@@ -12,26 +12,36 @@ use Spryker\Shared\Kernel\AbstractBundleConfig;
 class CheckoutRestApiConfig extends AbstractBundleConfig
 {
     /**
+     * @api
+     *
      * @var string
      */
     public const ERROR_IDENTIFIER_CHECKOUT_DATA_INVALID = 'ERROR_IDENTIFIER_CHECKOUT_DATA_INVALID';
 
     /**
+     * @api
+     *
      * @var string
      */
     public const ERROR_IDENTIFIER_ORDER_NOT_PLACED = 'ERROR_IDENTIFIER_ORDER_NOT_PLACED';
 
     /**
+     * @api
+     *
      * @var string
      */
     public const ERROR_IDENTIFIER_CART_NOT_FOUND = 'ERROR_IDENTIFIER_CART_NOT_FOUND';
 
     /**
+     * @api
+     *
      * @var string
      */
     public const ERROR_IDENTIFIER_CART_IS_EMPTY = 'ERROR_IDENTIFIER_CART_IS_EMPTY';
 
     /**
+     * @api
+     *
      * @var string
      */
     public const ERROR_IDENTIFIER_UNABLE_TO_DELETE_CART = 'ERROR_IDENTIFIER_UNABLE_TO_DELETE_CART';
