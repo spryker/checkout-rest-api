@@ -82,5 +82,12 @@ post:
                         allowExtraFields: true
                         fields:
                             idShipmentMethod:
+                                # BC: legacy Collection (no allowMissingFields) reported an absent
+                                # idShipmentMethod as "This field is missing." (901). The value-object
+                                # migration loses that implicit required-presence, so a missing shipment
+                                # method fell through to RestShipmentTransfer::getIdShipmentMethodOrFail()
+                                # and 500'd. Restore the contract with an explicit presence guard.
+                                - NotNull:
+                                      message: 'This field is missing.'
                                 - Type:
                                       type: numeric
