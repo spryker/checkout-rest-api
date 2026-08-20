@@ -14,6 +14,16 @@ resource:
           description: 'Place an order for the cart identified by `idCart`.'
           normalizationContext:
               gen_id: false
+          openapiContext:
+              responses:
+                  201:
+                      description: 'Order placed.'
+                  400:
+                      description: 'Neither an access token nor an anonymous customer identifier was provided.'
+                  401:
+                      description: 'Unauthenticated: the access token is invalid or expired.'
+                  422:
+                      description: 'Unprocessable request: invalid payload, or the order could not be placed.'
 
     includes:
         - relationshipName: orders
