@@ -64,6 +64,7 @@ resource:
         checkoutDataId:
             type: string
             identifier: true
+            syntheticIdentifier: true
             writable: false
             readable: false
             required: false

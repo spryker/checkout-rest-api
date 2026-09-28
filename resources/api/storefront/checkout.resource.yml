@@ -35,6 +35,7 @@ resource:
         checkoutId:
             type: string
             identifier: true
+            syntheticIdentifier: true
             writable: false
             readable: false
             required: false
@@ -337,7 +338,8 @@ resource:
             writable: false
             readable: true
             required: false
-            description: 'URL the user should be redirected to after order placement.'
+            responseOptional: true
+            description: 'URL the user should be redirected to after order placement. Set by a payment method that hands the customer to an external provider; a method that settles in place - invoice, for instance - answers none.'
             openapiContext:
                 example: 'https://payment-provider.example.com/redirect'
 
@@ -346,6 +348,7 @@ resource:
             writable: false
             readable: true
             required: false
-            description: 'Flag indicating whether the redirect points to an external URL.'
+            responseOptional: true
+            description: 'Flag indicating whether the redirect points to an external URL. Set alongside `redirectUrl` by a payment method that redirects, and absent with it when the method settles in place.'
             openapiContext:
                 example: false
