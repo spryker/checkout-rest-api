@@ -99,7 +99,11 @@ post:
                                   allowExtraFields: true
                                   fields:
                                       items:
-                                          - NotBlank
+                                          - All:
+                                                constraints:
+                                                    - NotBlank
+                                                    - Type:
+                                                          type: string
                                       idShipmentMethod:
                                           - NotBlank
                                           - Type:
@@ -112,3 +116,21 @@ post:
                                           - Optional:
                                                 constraints:
                                                     - Date: ~
+    servicePoints:
+        - Optional:
+              constraints:
+                  - All:
+                        constraints:
+                            - Collection:
+                                  allowExtraFields: true
+                                  fields:
+                                      idServicePoint:
+                                          - NotBlank
+                                          - Type:
+                                                type: string
+                                      items:
+                                          - All:
+                                                constraints:
+                                                    - NotBlank
+                                                    - Type:
+                                                          type: string

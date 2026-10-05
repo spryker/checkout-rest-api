@@ -91,3 +91,48 @@ post:
                                       message: 'This field is missing.'
                                 - Type:
                                       type: numeric
+    servicePoints:
+        - Optional:
+              constraints:
+                  - All:
+                        constraints:
+                            - Collection:
+                                  allowExtraFields: true
+                                  fields:
+                                      idServicePoint:
+                                          - NotBlank
+                                          - Type:
+                                                type: string
+                                      items:
+                                          - All:
+                                                constraints:
+                                                    - NotBlank
+                                                    - Type:
+                                                          type: string
+    shipments:
+        - Optional:
+              constraints:
+                  - All:
+                        constraints:
+                            - Collection:
+                                  allowExtraFields: true
+                                  fields:
+                                      items:
+                                          - All:
+                                                constraints:
+                                                    - NotBlank
+                                                    - Type:
+                                                          type: string
+                                      idShipmentMethod:
+                                          - Optional:
+                                                constraints:
+                                                    - Type:
+                                                          type: numeric
+                                      shippingAddress:
+                                          - Optional:
+                                                constraints:
+                                                    - NotBlank
+                                      requestedDeliveryDate:
+                                          - Optional:
+                                                constraints:
+                                                    - Date: ~

@@ -20,11 +20,23 @@ resource:
                   200:
                       description: 'Checkout data returned.'
                   400:
-                      description: 'Neither an access token nor an anonymous customer identifier was provided.'
+                      description: 'Neither an access token nor an anonymous customer identifier was provided (code 1105), or more than one payment was sent (code 1107).'
+                      codes:
+                          - code: '1105'
+                            description: 'Neither an access token nor an anonymous customer identifier is sent.'
+                          - code: '1107'
+                            description: 'More than one payment method is sent.'
                   401:
                       description: 'Unauthenticated: the access token is invalid or expired.'
                   422:
-                      description: 'Unprocessable request: invalid payload, or the checkout data could not be read.'
+                      description: 'Unprocessable request: invalid payload, an unavailable service point (code 5405), an item assigned to more than one service point (code 5406), or the checkout data could not be read. The selected payment method is not checked for availability here; /checkout rejects an unavailable one (code 1102).'
+                      codes:
+                          - code: '5405'
+                            description: 'The service point is not available.'
+                          - code: '5406'
+                            description: 'An item is assigned to more than one service point.'
+                          - code: '901'
+                            description: 'Request validation failed.'
 
     includes:
         - relationshipName: shipments
