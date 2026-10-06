@@ -363,6 +363,38 @@ resource:
             required: false
             description: 'Available customer addresses.'
             openapiContext:
+                items:
+                    type: object
+                    required:
+                        - id
+                    properties:
+                        id:
+                            type: string
+                            description: 'Customer address identifier.'
+                        salutation:
+                            type: string
+                        firstName:
+                            type: string
+                        lastName:
+                            type: string
+                        address1:
+                            type: string
+                        address2:
+                            type: string
+                        zipCode:
+                            type: string
+                        city:
+                            type: string
+                        country:
+                            type: string
+                        iso2Code:
+                            type: string
+                        phone:
+                            type: string
+                        isDefaultBilling:
+                            type: boolean
+                        isDefaultShipping:
+                            type: boolean
                 example:
                     - id: '1ce91011-8d60-59ef-9fe0-4493ef36c4f0'
                       salutation: 'Mr'
@@ -385,6 +417,18 @@ resource:
             required: false
             description: 'Available payment providers with their methods.'
             openapiContext:
+                items:
+                    type: object
+                    required:
+                        - paymentProviderName
+                        - paymentMethods
+                    properties:
+                        paymentProviderName:
+                            type: string
+                        paymentMethods:
+                            type: array
+                            items:
+                                type: object
                 example:
                     - paymentProviderName: 'DummyPayment'
                       paymentMethods:
@@ -401,6 +445,29 @@ resource:
             required: false
             description: 'Available shipment methods.'
             openapiContext:
+                items:
+                    type: object
+                    required:
+                        - id
+                        - name
+                        - carrierName
+                    properties:
+                        id:
+                            type: integer
+                        name:
+                            type: string
+                        carrierName:
+                            type: string
+                        price:
+                            type: integer
+                        taxRate:
+                            type: number
+                            nullable: true
+                        deliveryTime:
+                            type: integer
+                            nullable: true
+                        currencyIsoCode:
+                            type: string
                 example:
                     - id: 1
                       name: 'Standard'
@@ -417,13 +484,36 @@ resource:
             required: false
             description: 'Currently selected shipment methods.'
             openapiContext:
+                items:
+                    type: object
+                    required:
+                        - id
+                        - name
+                        - carrierName
+                    properties:
+                        id:
+                            type: integer
+                        name:
+                            type: string
+                        carrierName:
+                            type: string
+                        price:
+                            type: integer
+                        taxRate:
+                            type: number
+                            nullable: true
+                        deliveryTime:
+                            type: integer
+                            nullable: true
+                        currencyIsoCode:
+                            type: string
                 example:
                     - id: 1
                       name: 'Standard'
                       carrierName: 'Spryker Dummy Shipment'
                       price: 490
                       taxRate: 19
-                      shipmentType: 'delivery'
+                      deliveryTime: null
                       currencyIsoCode: 'EUR'
 
         selectedPaymentMethods:
@@ -433,6 +523,20 @@ resource:
             required: false
             description: 'Currently selected payment methods.'
             openapiContext:
+                items:
+                    type: object
+                    required:
+                        - paymentMethodName
+                        - paymentProviderName
+                    properties:
+                        paymentMethodName:
+                            type: string
+                        paymentProviderName:
+                            type: string
+                        requiredRequestData:
+                            type: array
+                            items:
+                                type: string
                 example:
                     - paymentMethodName: 'invoice'
                       paymentProviderName: 'DummyPayment'
@@ -444,8 +548,22 @@ resource:
             required: false
             description: 'Currently selected shipment types per item.'
             openapiContext:
+                items:
+                    type: object
+                    required:
+                        - id
+                        - name
+                        - key
+                    properties:
+                        id:
+                            type: string
+                            description: 'Shipment type UUID.'
+                        name:
+                            type: string
+                        key:
+                            type: string
                 example:
-                    - idShipmentType: 1
+                    - id: '174d9dc0-55ae-5c4b-a2f2-a419027029ef'
                       name: 'Delivery'
                       key: 'delivery'
 
@@ -456,6 +574,18 @@ resource:
             required: false
             description: 'Currently selected service points per item group.'
             openapiContext:
+                items:
+                    type: object
+                    required:
+                        - idServicePoint
+                        - items
+                    properties:
+                        idServicePoint:
+                            type: string
+                        items:
+                            type: array
+                            items:
+                                type: string
                 example:
                     - idServicePoint: '3fec586e-92f6-5692-a98b-dfca29cd2e16'
                       items: ['c4ca4238a0b923820dcc509a6f75849b']
