@@ -336,7 +336,7 @@ resource:
         items:
             type: array
             nullable: true
-            writable: true
+            writable: false
             readable: false
             required: false
             description: 'List of item identifiers for single-shipment checkout.'
