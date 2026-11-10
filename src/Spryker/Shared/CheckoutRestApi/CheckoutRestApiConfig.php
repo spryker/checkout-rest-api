@@ -7,9 +7,9 @@
 
 namespace Spryker\Shared\CheckoutRestApi;
 
-use Spryker\Shared\Kernel\AbstractBundleConfig;
+use Spryker\Shared\Kernel\AbstractSharedConfig;
 
-class CheckoutRestApiConfig extends AbstractBundleConfig
+class CheckoutRestApiConfig extends AbstractSharedConfig
 {
     /**
      * @api
