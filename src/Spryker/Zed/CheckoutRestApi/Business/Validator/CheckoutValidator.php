@@ -20,6 +20,7 @@ use Spryker\Shared\CheckoutRestApi\CheckoutRestApiConfig;
 use Spryker\Shared\Kernel\StrategyResolverInterface;
 use Spryker\Zed\CheckoutRestApi\Business\Checkout\Quote\QuoteReaderInterface;
 use Spryker\Zed\CheckoutRestApi\Dependency\Facade\CheckoutRestApiToCartFacadeInterface;
+use Spryker\Zed\CheckoutRestApi\Dependency\Facade\CheckoutRestApiToCartsRestApiFacadeInterface;
 
 class CheckoutValidator implements CheckoutValidatorInterface
 {
@@ -48,12 +49,14 @@ class CheckoutValidator implements CheckoutValidatorInterface
      * @param \Spryker\Zed\CheckoutRestApi\Dependency\Facade\CheckoutRestApiToCartFacadeInterface $cartFacade
      * @param \Spryker\Shared\Kernel\StrategyResolverInterface<list<\Spryker\Zed\CheckoutRestApiExtension\Dependency\Plugin\CheckoutDataValidatorPluginInterface>> $checkoutDataValidatorPluginStrategyResolver
      * @param list<\Spryker\Zed\CheckoutRestApiExtension\Dependency\Plugin\ReadCheckoutDataValidatorPluginInterface> $readCheckoutDataValidatorPlugins
+     * @param \Spryker\Zed\CheckoutRestApi\Dependency\Facade\CheckoutRestApiToCartsRestApiFacadeInterface $cartsRestApiFacade
      */
     public function __construct(
         QuoteReaderInterface $quoteReader,
         CheckoutRestApiToCartFacadeInterface $cartFacade,
         StrategyResolverInterface $checkoutDataValidatorPluginStrategyResolver,
-        array $readCheckoutDataValidatorPlugins
+        array $readCheckoutDataValidatorPlugins,
+        protected CheckoutRestApiToCartsRestApiFacadeInterface $cartsRestApiFacade
     ) {
         $this->quoteReader = $quoteReader;
         $this->cartFacade = $cartFacade;
@@ -164,6 +167,12 @@ class CheckoutValidator implements CheckoutValidatorInterface
             return $this->createCheckoutDataCartNotFoundErrorResponse();
         }
 
+        if (!$this->cartsRestApiFacade->checkQuoteWritePermission($quoteTransfer)) {
+            return (new RestCheckoutDataResponseTransfer())
+                ->setIsSuccess(false)
+                ->addError($this->createUnauthorizedCartActionError());
+        }
+
         return (new RestCheckoutDataResponseTransfer())
             ->setIsSuccess(true);
     }
@@ -228,6 +237,12 @@ class CheckoutValidator implements CheckoutValidatorInterface
             return $this->createCheckoutCartNotFoundErrorResponse();
         }
 
+        if (!$this->cartsRestApiFacade->checkQuoteWritePermission($quoteTransfer)) {
+            return (new RestCheckoutResponseTransfer())
+                ->setIsSuccess(false)
+                ->addError($this->createUnauthorizedCartActionError());
+        }
+
         if (!$quoteTransfer->getItems()->count()) {
             return $this->createCartIsEmptyErrorResponse();
         }
@@ -263,6 +278,12 @@ class CheckoutValidator implements CheckoutValidatorInterface
                 (new RestCheckoutErrorTransfer())
                     ->setErrorIdentifier(CheckoutRestApiConfig::ERROR_IDENTIFIER_CART_NOT_FOUND),
             );
+    }
+
+    protected function createUnauthorizedCartActionError(): RestCheckoutErrorTransfer
+    {
+        return (new RestCheckoutErrorTransfer())
+            ->setErrorIdentifier(CheckoutRestApiConfig::ERROR_IDENTIFIER_UNAUTHORIZED_CART_ACTION);
     }
 
     protected function createCartIsEmptyErrorResponse(): RestCheckoutResponseTransfer

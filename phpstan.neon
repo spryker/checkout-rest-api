@@ -3,4 +3,7 @@ parameters:
         -
             identifier: missingType.iterableValue
         - '#PHPDoc tag @Glue has invalid value#'
+        -
+            identifier: function.alreadyNarrowedType
+            path: src/Spryker/Zed/CheckoutRestApi/Dependency/Facade/CheckoutRestApiToCartsRestApiFacadeBridge.php
     level: 7

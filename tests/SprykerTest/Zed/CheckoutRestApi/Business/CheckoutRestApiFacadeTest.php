@@ -16,7 +16,9 @@ use Generated\Shared\Transfer\QuoteProcessFlowTransfer;
 use Generated\Shared\Transfer\RestCheckoutDataResponseTransfer;
 use Generated\Shared\Transfer\RestCheckoutResponseTransfer;
 use Generated\Shared\Transfer\ShipmentMethodsTransfer;
+use PHPUnit\Framework\MockObject\Rule\InvocationOrder;
 use Spryker\Shared\CheckoutExtension\CheckoutExtensionContextsInterface;
+use Spryker\Shared\CheckoutRestApi\CheckoutRestApiConfig as SharedCheckoutRestApiConfig;
 use Spryker\Shared\Kernel\StrategyResolver;
 use Spryker\Shared\SalesOrderAmendmentExtension\SalesOrderAmendmentExtensionContextsInterface;
 use Spryker\Zed\Calculation\Business\CalculationFacade;
@@ -128,6 +130,53 @@ class CheckoutRestApiFacadeTest extends Unit
         $this->assertTrue($checkoutResponseTransfer->getIsSuccess());
     }
 
+    public function testGivenReadOnlySharedCartHolderWhenPlaceOrderIsCalledThenUnauthorizedCartActionIsReturnedAndNoOrderIsPlaced(): void
+    {
+        // Arrange
+        $checkoutRestApiFacade = $this->tester->getFacade();
+        $checkoutRestApiFacade->setFactory($this->getMockCheckoutRestApiFactoryForSharedCartHolder(false, $this->never()));
+
+        // Act
+        $restCheckoutResponseTransfer = $checkoutRestApiFacade->placeOrder($this->tester->prepareFullRestCheckoutRequestAttributesTransfer());
+
+        // Assert
+        $this->assertFalse($restCheckoutResponseTransfer->getIsSuccess());
+        $this->assertSame(
+            SharedCheckoutRestApiConfig::ERROR_IDENTIFIER_UNAUTHORIZED_CART_ACTION,
+            $restCheckoutResponseTransfer->getErrors()->offsetGet(0)->getErrorIdentifier(),
+        );
+    }
+
+    public function testGivenWriteSharedCartHolderWhenPlaceOrderIsCalledThenOrderIsPlaced(): void
+    {
+        // Arrange
+        $checkoutRestApiFacade = $this->tester->getFacade();
+        $checkoutRestApiFacade->setFactory($this->getMockCheckoutRestApiFactoryForSharedCartHolder(true, $this->once()));
+
+        // Act
+        $restCheckoutResponseTransfer = $checkoutRestApiFacade->placeOrder($this->tester->prepareFullRestCheckoutRequestAttributesTransfer());
+
+        // Assert
+        $this->assertTrue($restCheckoutResponseTransfer->getIsSuccess());
+    }
+
+    public function testGivenReadOnlySharedCartHolderWhenGetCheckoutDataIsCalledThenUnauthorizedCartActionIsReturned(): void
+    {
+        // Arrange
+        $checkoutRestApiFacade = $this->tester->getFacade();
+        $checkoutRestApiFacade->setFactory($this->getMockCheckoutRestApiFactoryForSharedCartHolder(false, $this->never()));
+
+        // Act
+        $restCheckoutDataResponseTransfer = $checkoutRestApiFacade->getCheckoutData($this->tester->prepareFullRestCheckoutRequestAttributesTransfer());
+
+        // Assert
+        $this->assertFalse($restCheckoutDataResponseTransfer->getIsSuccess());
+        $this->assertSame(
+            SharedCheckoutRestApiConfig::ERROR_IDENTIFIER_UNAUTHORIZED_CART_ACTION,
+            $restCheckoutDataResponseTransfer->getErrors()->offsetGet(0)->getErrorIdentifier(),
+        );
+    }
+
     public function testPlaceOrderWillPlaceOrderForGuest(): void
     {
         /**
@@ -224,7 +273,7 @@ class CheckoutRestApiFacadeTest extends Unit
     /**
      * @return \Spryker\Zed\CheckoutRestApi\Business\CheckoutRestApiBusinessFactory|\PHPUnit\Framework\MockObject\MockObject
      */
-    protected function initMockCheckoutRestApiFactory(): CheckoutRestApiBusinessFactory
+    protected function initMockCheckoutRestApiFactory(?InvocationOrder $placeOrderInvocationRule = null): CheckoutRestApiBusinessFactory
     {
         $mockCheckoutRestApiFactory = $this->createPartialMock(
             CheckoutRestApiBusinessFactory::class,
@@ -247,7 +296,7 @@ class CheckoutRestApiFacadeTest extends Unit
 
         $mockCheckoutRestApiFactory = $this->addMockShipmentFacade($mockCheckoutRestApiFactory);
         $mockCheckoutRestApiFactory = $this->addMockPaymentFacade($mockCheckoutRestApiFactory);
-        $mockCheckoutRestApiFactory = $this->addMockCheckoutFacade($mockCheckoutRestApiFactory);
+        $mockCheckoutRestApiFactory = $this->addMockCheckoutFacade($mockCheckoutRestApiFactory, $placeOrderInvocationRule);
         $mockCheckoutRestApiFactory = $this->addMockQuoteFacade($mockCheckoutRestApiFactory);
         $mockCheckoutRestApiFactory = $this->addMockQuoteMapperPlugins($mockCheckoutRestApiFactory);
         $mockCheckoutRestApiFactory = $this->addMockCalculationFacade($mockCheckoutRestApiFactory);
@@ -272,6 +321,23 @@ class CheckoutRestApiFacadeTest extends Unit
         $mockCheckoutRestApiFactory = $this->addMockCartsRestApiFacade($mockCheckoutRestApiFactory, $quoteProcessFlowTransfer);
 
         return $mockCheckoutRestApiFactory;
+    }
+
+    /**
+     * @return \Spryker\Zed\CheckoutRestApi\Business\CheckoutRestApiBusinessFactory|\PHPUnit\Framework\MockObject\MockObject
+     */
+    protected function getMockCheckoutRestApiFactoryForSharedCartHolder(
+        bool $isQuoteWritable,
+        InvocationOrder $placeOrderInvocationRule
+    ): CheckoutRestApiBusinessFactory {
+        $mockCheckoutRestApiFactory = $this->initMockCheckoutRestApiFactory($placeOrderInvocationRule);
+        $mockCheckoutRestApiFactory->setContainer(new Container());
+
+        $mockCheckoutRestApiFactory = $this->addStrategyResolverVanilla($mockCheckoutRestApiFactory);
+        $mockCheckoutRestApiFactory = $this->addMockCustomerFacade($mockCheckoutRestApiFactory);
+        $mockCheckoutRestApiFactory = $this->addMockCartFacade($mockCheckoutRestApiFactory);
+
+        return $this->addMockCartsRestApiFacade($mockCheckoutRestApiFactory, null, $isQuoteWritable);
     }
 
     /**
@@ -373,20 +439,25 @@ class CheckoutRestApiFacadeTest extends Unit
     /**
      * @param \Spryker\Zed\CheckoutRestApi\Business\CheckoutRestApiBusinessFactory|\PHPUnit\Framework\MockObject\MockObject $mockCheckoutRestApiFactory
      * @param \Generated\Shared\Transfer\QuoteProcessFlowTransfer|null $quoteProcessFlowTransfer
+     * @param bool $isQuoteWritable
      *
      * @return \Spryker\Zed\CheckoutRestApi\Business\CheckoutRestApiBusinessFactory|\PHPUnit\Framework\MockObject\MockObject
      */
     protected function addMockCartsRestApiFacade(
         CheckoutRestApiBusinessFactory $mockCheckoutRestApiFactory,
-        ?QuoteProcessFlowTransfer $quoteProcessFlowTransfer = null
+        ?QuoteProcessFlowTransfer $quoteProcessFlowTransfer = null,
+        bool $isQuoteWritable = true
     ): CheckoutRestApiBusinessFactory {
         $mockCartsRestApiFacade = $this->createPartialMock(
             CartsRestApiFacade::class,
-            ['findQuoteByUuid'],
+            ['findQuoteByUuid', 'checkQuoteWritePermission'],
         );
         $mockCartsRestApiFacade
             ->method('findQuoteByUuid')
             ->willReturn($this->tester->createQuoteResponseTransfer($quoteProcessFlowTransfer));
+        $mockCartsRestApiFacade
+            ->method('checkQuoteWritePermission')
+            ->willReturn($isQuoteWritable);
 
         $mockCheckoutRestApiFactory
             ->method('getCartsRestApiFacade')
@@ -408,11 +479,14 @@ class CheckoutRestApiFacadeTest extends Unit
     {
         $mockCartsRestApiFacade = $this->createPartialMock(
             CartsRestApiFacade::class,
-            ['findQuoteByUuid'],
+            ['findQuoteByUuid', 'checkQuoteWritePermission'],
         );
         $mockCartsRestApiFacade
             ->method('findQuoteByUuid')
             ->willReturn($this->tester->createQuoteResponseForGuestTransfer());
+        $mockCartsRestApiFacade
+            ->method('checkQuoteWritePermission')
+            ->willReturn(true);
 
         $mockCheckoutRestApiFactory
             ->method('getCartsRestApiFacade')
@@ -501,16 +575,20 @@ class CheckoutRestApiFacadeTest extends Unit
 
     /**
      * @param \Spryker\Zed\CheckoutRestApi\Business\CheckoutRestApiBusinessFactory|\PHPUnit\Framework\MockObject\MockObject $mockCheckoutRestApiFactory
+     * @param \PHPUnit\Framework\MockObject\Rule\InvocationOrder|null $placeOrderInvocationRule
      *
      * @return \Spryker\Zed\CheckoutRestApi\Business\CheckoutRestApiBusinessFactory|\PHPUnit\Framework\MockObject\MockObject
      */
-    protected function addMockCheckoutFacade(CheckoutRestApiBusinessFactory $mockCheckoutRestApiFactory): CheckoutRestApiBusinessFactory
-    {
+    protected function addMockCheckoutFacade(
+        CheckoutRestApiBusinessFactory $mockCheckoutRestApiFactory,
+        ?InvocationOrder $placeOrderInvocationRule = null
+    ): CheckoutRestApiBusinessFactory {
         $mockCheckoutFacade = $this->createPartialMock(
             CheckoutFacade::class,
             ['placeOrder'],
         );
         $mockCheckoutFacade
+            ->expects($placeOrderInvocationRule ?? $this->any())
             ->method('placeOrder')
             ->willReturn($this->tester->createCheckoutResponseTransfer());
 

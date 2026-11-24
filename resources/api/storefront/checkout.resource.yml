@@ -27,6 +27,11 @@ resource:
                             description: 'More than one payment method is sent.'
                   401:
                       description: 'Unauthenticated: the access token is invalid or expired.'
+                  403:
+                      description: 'The cart is shared with the company user read-only (code 115).'
+                      codes:
+                          - code: '115'
+                            description: 'Unauthorized cart action.'
                   422:
                       description: 'Unprocessable request: invalid payload, an unavailable service point (code 5405), an item assigned to more than one service point (code 5406), or the order could not be placed (code 1102).'
                       codes:

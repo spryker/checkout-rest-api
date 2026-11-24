@@ -45,4 +45,11 @@ class CheckoutRestApiConfig extends AbstractSharedConfig
      * @var string
      */
     public const ERROR_IDENTIFIER_UNABLE_TO_DELETE_CART = 'ERROR_IDENTIFIER_UNABLE_TO_DELETE_CART';
+
+    /**
+     * @api
+     *
+     * @uses \Spryker\Shared\CartsRestApi\CartsRestApiConfig::ERROR_IDENTIFIER_UNAUTHORIZED_CART_ACTION
+     */
+    public const string ERROR_IDENTIFIER_UNAUTHORIZED_CART_ACTION = 'ERROR_IDENTIFIER_UNAUTHORIZED_CART_ACTION';
 }

@@ -29,4 +29,13 @@ class CheckoutRestApiToCartsRestApiFacadeBridge implements CheckoutRestApiToCart
     {
         return $this->cartsRestApiFacade->findQuoteByUuid($quoteTransfer);
     }
+
+    public function checkQuoteWritePermission(QuoteTransfer $quoteTransfer): bool
+    {
+        if (!method_exists($this->cartsRestApiFacade, 'checkQuoteWritePermission')) {
+            return true;
+        }
+
+        return $this->cartsRestApiFacade->checkQuoteWritePermission($quoteTransfer);
+    }
 }

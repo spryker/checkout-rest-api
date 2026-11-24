@@ -140,6 +140,13 @@ class CheckoutRestApiConfig extends AbstractBundleConfig
     /**
      * @api
      *
+     * @uses \Spryker\Glue\CartsRestApi\CartsRestApiConfig::RESPONSE_CODE_UNAUTHORIZED_CART_ACTION
+     */
+    public const string RESPONSE_CODE_UNAUTHORIZED_CART_ACTION = '115';
+
+    /**
+     * @api
+     *
      * @var string
      */
     public const RESPONSE_DETAILS_CHECKOUT_DATA_INVALID = 'Checkout data is invalid.';
@@ -199,6 +206,13 @@ class CheckoutRestApiConfig extends AbstractBundleConfig
      * @var string
      */
     public const RESPONSE_DETAILS_CUSTOMER_DATA_MISSING = 'Required customer information is missing from the request body.';
+
+    /**
+     * @api
+     *
+     * @uses \Spryker\Glue\CartsRestApi\CartsRestApiConfig::EXCEPTION_MESSAGE_UNAUTHORIZED_CART_ACTION
+     */
+    public const string RESPONSE_DETAILS_UNAUTHORIZED_CART_ACTION = 'Unauthorized cart action.';
 
     /**
      * @var array<string>
@@ -293,6 +307,11 @@ class CheckoutRestApiConfig extends AbstractBundleConfig
                 RestErrorMessageTransfer::CODE => static::RESPONSE_CODE_CHECKOUT_DATA_INVALID,
                 RestErrorMessageTransfer::STATUS => Response::HTTP_UNPROCESSABLE_ENTITY,
                 RestErrorMessageTransfer::DETAIL => static::RESPONSE_DETAILS_CHECKOUT_DATA_INVALID,
+            ],
+            SharedCheckoutRestApiConfig::ERROR_IDENTIFIER_UNAUTHORIZED_CART_ACTION => [
+                RestErrorMessageTransfer::CODE => static::RESPONSE_CODE_UNAUTHORIZED_CART_ACTION,
+                RestErrorMessageTransfer::STATUS => Response::HTTP_FORBIDDEN,
+                RestErrorMessageTransfer::DETAIL => static::RESPONSE_DETAILS_UNAUTHORIZED_CART_ACTION,
             ],
         ];
     }

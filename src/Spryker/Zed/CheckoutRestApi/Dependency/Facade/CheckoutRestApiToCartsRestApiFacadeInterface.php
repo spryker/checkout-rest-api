@@ -13,4 +13,6 @@ use Generated\Shared\Transfer\QuoteTransfer;
 interface CheckoutRestApiToCartsRestApiFacadeInterface
 {
     public function findQuoteByUuid(QuoteTransfer $quoteTransfer): QuoteResponseTransfer;
+
+    public function checkQuoteWritePermission(QuoteTransfer $quoteTransfer): bool;
 }
